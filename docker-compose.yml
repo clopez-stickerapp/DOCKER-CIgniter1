@@ -10,8 +10,8 @@ services:
   mysql_db:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: toor
-      MYSQL_DATABASE: flowers
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: caves
     ports:
     - 3306:3306
   
