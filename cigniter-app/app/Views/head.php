@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title><?= $title?></title>
+	<title>The Cave</title>
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>css/style.css" />
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>css/jquery-ui-1.8.4.custom.css" />
     <link rel="shortcut icon" href="<?= base_url(); ?>images/icon.gif" type="image/x-icon"> 

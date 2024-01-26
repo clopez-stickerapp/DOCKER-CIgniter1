@@ -52,9 +52,7 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
-        // $this->orders = new \App\Models\OrdersModel();
         $this->orders = new \App\Models\CaveOrdersModel();
-        helper('page_data_helper');
 
         // E.g.: $this->session = \Config\Services::session();
     }

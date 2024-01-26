@@ -39,6 +39,8 @@ class CaveOrdersModel extends Model
 
     public function get( $status = false) {
         $session = session();
+		$db = \Config\Database::connect();
+		$builder = $db->table($this->table);
 
 		//Set default order by
 		if( $session->getTempdata('order_by') == '' ) {
@@ -50,11 +52,11 @@ class CaveOrdersModel extends Model
 		
 		if(is_numeric($status)) {
             //Get single order
-            $this->where('id', $status)->first();
+            $builder->where('id', $status);
 		} else {
             //Normal
 			if($status) {
-                $this->where('status', $status)->first();
+                $builder->where('status', $status);
 			}
 
 			if(!empty($_GET['search_text'])) {
@@ -71,22 +73,22 @@ class CaveOrdersModel extends Model
 					$search .= " OR file4 like '%$word%'";
 					$search .= " OR file5 like '%$word%'";
 				}
-				$this->where("(".$search.")");
+				$builder->where("(".$search.")");
 			}
 			$order_by = $session->getTempdata('order_by');
 			$order_how = $session->getTempdata('order_how');
 			
 			if($order_by == 'comments') {
-				$this->select("*, (SELECT count(order_id) FROM thecave_comments WHERE order_id=orders.id) AS comments");
+				$builder->select("*, (SELECT count(order_id) FROM thecave_comments WHERE order_id=orders.id) AS comments");
 			}
 			
-			$this->orderBy($order_by, $order_how);
+			$builder->orderBy($order_by, $order_how);
 		}
-		$q = $this->get('thecave_orders');
+		$q = $builder->get();
 
 		$orders = array();
 		$i = 0;
-		foreach($q->result_array() as $row) {
+		foreach($q->getResultArray() as $row) {
 			$orders[$i] = $row;
 			$orders[$i]['order_id'] = empty($row['order_id']) ? '&nbsp;' : $row['order_id'];
 			$orders[$i]['material_name'] = $this->get_data('thecave_materials',$row['material']);
@@ -116,10 +118,12 @@ class CaveOrdersModel extends Model
 			
 			//Comments
 			$orders[$i]['comments'] = array();
-			$this->where('order_id',$row['id']);
-			$this->orderBy('id','asc');
-			$q = $this->get('thecave_comments');
-			$orders[$i]['comments'] = $q->result_array();
+
+			$builder2 = $db->table('thecave_comments');
+			$builder2->where('order_id',$row['id']);
+			$builder2->orderBy('id','asc');
+			$q = $builder2->get();
+			$orders[$i]['comments'] = $q->getResultArray();
 			
 			$i++;
 		}
@@ -132,18 +136,21 @@ class CaveOrdersModel extends Model
 	}
 	
 	public function get_data($table, $id = '') {
+		$db = \Config\Database::connect();
+		$builder = $db->table($table);
+
 		if($id != '') {
-			$this->where('id',$id);
-			$q = $this->get($table);
-			$r = $q->result_array();
+			$builder->where('id',$id);
+			$q = $builder->get();
+			$r = $q->getResultArray();
 			if(!empty($r[0]['name'])) {
 				return $r[0]['name'];
 			} else {
 				return '&nbsp;';
 			}
 		} else {
-			$q = $this->get($table);
-			return $q->result_array();
+			$q = $builder->get();
+			return $q->getResultArray();
 		}
 	}
 }
