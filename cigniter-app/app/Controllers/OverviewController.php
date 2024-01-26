@@ -5,7 +5,7 @@ namespace App\Controllers;
 class OverviewController extends BaseController
 {
 
-	public function index()
+	public function index() : string
 	{
 		$data['ordrar'] = count($this->orders->get('ny'));
 		$data['printade'] = count($this->orders->get('printad'));
