@@ -1,0 +1,122 @@
+<?php
+
+namespace App\Controllers;
+
+class Ordrar extends BaseController
+{
+
+	public function index() {
+		$data['title'] = 'Ordrar';
+		$data['new_status'] = 'printad';
+		$data['orders'] = $this->orders->get('ny');
+		view('ordrar',$data);
+	}
+
+	public function printad() {
+		$data['title'] = 'Printade';
+		$data['new_status'] = 'klar';
+		$data['orders'] = $this->orders->get('printad');
+		view('ordrar',$data);
+	}
+
+	public function klar() {
+		$data['title'] = 'Klara';
+		$data['new_status'] = 'arkiverad';
+		$data['orders'] = $this->orders->get('klar');
+		view('ordrar',$data);
+	}
+
+	public function arkiverad() {
+		$data['title'] = 'Arkiv';
+		$data['new_status'] = '';
+		$data['orders'] = $this->orders->get('arkiverad');
+		view('ordrar',$data);
+	}
+
+	public function sok() {
+		$data['title'] = 'Sökning';
+		$data['new_status'] = '';
+		$data['orders'] = $this->orders->get();
+		view('ordrar',$data);
+	}
+
+	public function update_status($id,$new_status,$status, $sok = false) {
+		$session = session();
+		$db      = \Config\Database::connect();
+		$builder = $db->table('thecave_orders');
+
+		$builder->where('id',$id);
+		$builder->set(array('status'=>$new_status));
+		$builder->update();
+
+		$order = $this->orders->get($id);
+		$session->setTempdata('message',"<p class='message success'>Order ID <b>".$id.
+			"</b>, '<b>".$order['name']."</b>' har markerats som '<span class='capatalize'><b>".$new_status.
+			"</b></span>'</p>");
+		if($sok) {
+			$status .= '?mekk=mekk&search_text=' . $sok;
+		}
+		header('location:'.base_url().'ordrar/'.$status);
+	}
+
+	public function visa($id) {
+		$data = $this->orders->get($id);
+		$data['materials'] 	= $this->orders->get_data('thecave_materials');
+		$data['cutters'] 	= $this->orders->get_data('thecave_cutters');
+		$data['laminates'] 	= $this->orders->get_data('thecave_laminates');
+		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
+		$data['signatures'] = $this->orders->get_data('thecave_signatures');
+		view('ordrar_visa',$data);
+	}
+
+	public function add_comment($order_id) {
+		extract($_POST);
+		$session = session();
+		$db      = \Config\Database::connect();
+		$builder = $db->table('thecave_comments');
+
+		$arr = array(
+						'order_id'		=>	$order_id,
+						'signature_id'	=>	$signature_id,
+						'text'			=>	$text,
+						'created'		=>	time()
+					);
+		$builder->set($arr);
+		$builder->insert();
+		$session->setTempdata('message','<p class="message success">Kommentar sparad</p>');
+		header('location:'.base_url().'ordrar/visa/'.$order_id);
+	}
+
+	public function save_order() {
+	}
+
+	public function order_by($order_by,$return='') {
+		$session = session();
+
+		$session->setTempdata('order_by',$order_by);
+		if($session->getTempdata('order_how') == 'DESC') {
+			$session->setTempdata('order_how','ASC');
+		} else {
+			$session->setTempdata('order_how','DESC');
+		}
+
+		header('location:'.base_url().'ordrar/'.$return);
+	}
+
+	public function radera($id) {
+		$session = session();
+		$db      = \Config\Database::connect();
+		$builder = $db->table('thecave_comments');
+
+		$builder->delete('order_id', $id);
+		//		mysql_query("DELETE FROM comments WHERE order_id='$id'");
+		
+		$builder2 = $db->table('thecave_orders');
+		$builder2->delete('id', $id);
+//		mysql_query("DELETE FROM orders WHERE id='$id'");
+
+		$session->setTempdata('message','<p class="message success">Order #'.$id.' raderad</p>');
+		header('location:'.base_url().'ordrar/');
+	}
+
+}

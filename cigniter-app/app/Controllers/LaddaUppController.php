@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 class LaddaUpp extends BaseController
 {
-
     public function index ( $id ) {
 		if( $id ) {
 			$data = $this->orders->get( $id );

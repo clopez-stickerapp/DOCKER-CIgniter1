@@ -53,6 +53,7 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
         // $this->orders = new \App\Models\OrdersModel();
+        $this->orders = new \App\Models\CaveOrdersModel();
 
         // E.g.: $this->session = \Config\Services::session();
     }
