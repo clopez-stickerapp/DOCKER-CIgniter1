@@ -44,6 +44,24 @@ class Database extends Config
         'port'     => 3306,
     ];
 
+    // -------the cave values --------
+    
+    // $active_group = "default";
+    // $active_record = TRUE;
+
+    // $db['default']['hostname'] = "localhost:3307";
+    // $db['default']['username'] = "develop";
+    // $db['default']['password'] = "stickit23435";
+    // $db['default']['database'] = "thecave";
+    // $db['default']['dbdriver'] = "mysqli";
+    // $db['default']['dbprefix'] = "";
+    // $db['default']['pconnect'] = TRUE;
+    // $db['default']['db_debug'] = TRUE;
+    // $db['default']['cache_on'] = FALSE;
+    // $db['default']['cachedir'] = "";
+    // $db['default']['char_set'] = "utf8";
+    // $db['default']['dbcollat'] = "utf8_unicode_ci";
+
     /**
      * This database connection is used when
      * running PHPUnit database tests.
