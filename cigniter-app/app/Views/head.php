@@ -5,16 +5,18 @@
 <html lang='en'>
 <head>
 	<title>The Cave</title>
-    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>css/style.css" />
-    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>css/jquery-ui-1.8.4.custom.css" />
-    <link rel="shortcut icon" href="<?= base_url(); ?>images/icon.gif" type="image/x-icon"> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <?= link_tag('public/css/style.css'); ?>
+    <?= link_tag('public/css/jquery-ui-1.8.4.custom.css'); ?>
+    <?= link_tag('public/images/icon.gif', 'shortcut icon', 'image/x-icon'); ?>
     
-    <script src="<?= base_url(); ?>js/jquery-1.4.2.min.js" type="text/javascript"></script>
-    <script src="<?= base_url(); ?>js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
-    
-    <script src="<?= base_url(); ?>js/jquery.bgiframe.js" type="text/javascript"></script>
-    <script src="<?= base_url(); ?>js/jquery.dimensions.js" type="text/javascript"></script>
-    <script src="<?= base_url(); ?>js/jquery.tooltip.min.js" type="text/javascript"></script>
+    <?= script_tag("public/js/jquery-1.4.2.min.js"); ?>
+    <?= script_tag("public/js/jquery-ui-1.8.4.custom.min.js"); ?>
+    <?= script_tag("public/js/jquery.bgiframe.js"); ?>
+    <?= script_tag("public/js/jquery.dimensions.js"); ?>
+    <?= script_tag("public/js/jquery.tooltip.min.js"); ?>
 </head>
 <body>
 <div id="wrapper">
