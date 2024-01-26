@@ -6,34 +6,30 @@ $ordersModel = new \App\Models\CaveOrdersModel();
 <h1><?= $title ?></h1>
 
 <form name="search" id="search" action="<?= base_url() ?>ordrar/sok" method="get">
-<input type="text" name="search_text" class="text" value="<?= $text = !empty($_GET['search_text']) ? $_GET['search_text'] : '' ?>" />
-<input type="image" class="search" src="<?= base_url() ?>public/images/search.png" name="search" value="Sök" />
-<?php if(!empty($_GET['search_text']) && 1==2): ?>
-	<a href=""><img src="<?= base_url() ?>images/remove.png" title="avbryt sökningen" class="remove" /></a>
-<?php endif; ?>
+    <input type="text" name="search_text" class="text" value="<?= $text = !empty($_GET['search_text']) ? $_GET['search_text'] : '' ?>" />
+    <input type="image" class="search" src="<?= base_url() ?>public/images/search.png" name="search" value="Sök" />
+
+    <?php if(!empty($_GET['search_text']) && 1==2): ?>
+        <a href=""><img src="<?= base_url() ?>images/remove.png" title="avbryt sökningen" class="remove" /></a>
+    <?php endif; ?>
+
 </form>
 
 <?php if(count($orders) > 0): ?>
 	<script type="text/javascript">
-    $(document).ready(function() {
-        $("a.name").tooltip({
-            delay: 0,
-            track: true,
-            content: false,
-            showURL: false
+        $(document).ready(function() {
+            $("a.name").tooltip({
+                delay: 0,
+                track: true,
+                content: false,
+                showURL: false
+            });
+            $('.row').hover(function() {
+                $(this).addClass('hover');
+            }, function() {
+                $(this).removeClass('hover');
+            });
         });
-        $("a.comment").tooltip({
-            delay: 0,
-            track: true,
-            content: false,
-            showURL: false
-        });
-        $('.row').hover(function() {
-            $(this).addClass('hover');
-        }, function() {
-            $(this).removeClass('hover');
-        });
-    });
     </script>
         
     <div class="table">
@@ -46,7 +42,7 @@ $ordersModel = new \App\Models\CaveOrdersModel();
                 	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
-            <div class="col small">
+            <div class="col medium">
             	<a href="<?= base_url() ?>ordrar/order_by/id/<?= $uri->getSegment(2) ?>">Order ID</a>
                 <?php if($session->getTempdata('order_by') == 'oredr_id'): ?>
                 	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
@@ -88,7 +84,7 @@ $ordersModel = new \App\Models\CaveOrdersModel();
                 	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
-            <div class="col">
+            <div class="col medium">
             	<a href="<?= base_url() ?>ordrar/order_by/comments/<?= $uri->getSegment(2) ?>">Kommentarer</a>
                 <?php if($session->getTempdata('order_by') == 'comments'): ?>
                 	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
@@ -100,15 +96,15 @@ $ordersModel = new \App\Models\CaveOrdersModel();
         <?php foreach($orders as $row): ?>
         <div class="row">
             <div class="col small"><?= $row['id'] ?></div>
-            <div class="col small"><?= $row['order_id'] ?></div>
+            <div class="col medium"><?= $row['order_id'] ?></div>
             <div class="col large">
-            	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>" title="<img src='<?= $row['thumb_url'] ?>'>" class="name full">
-					<?= strlen($row['name'])<18 ? $row['name'] : substr($row['name'],0,18).'...' ?>
+            	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>" title="<img src='<?= $row['thumb_url'] ?>'>" class="name full text-overflow-ellipsis">
+                    <?= $row['name'] ?>
             	</a>
             </div>
             <div class="col small"><?= $row['m2'] ?></div>
-            <div class="col"><?= $row['material_name'] ?></div>
-            <div class="col"><?= $row['laminate_name'] ?></div>
+            <div class="col"><span class="text-overflow-ellipsis" title="<?= $row['material_name'] ?>"><?= $row['material_name'] ?></span></div>
+            <div class="col"><span class="text-overflow-ellipsis" title="<?= $row['laminate_name'] ?>"><?= $row['laminate_name'] ?></span></div>
             <div class="col"><?= $row['cutter_name'] ?></div>
             <div class="col">
             	<?php $days = round((strtotime($row['done_before']) - strtotime(date('Y-m-d'))) / 86400); ?>
@@ -118,7 +114,7 @@ $ordersModel = new \App\Models\CaveOrdersModel();
                 	<?= $row['done_before'] ?>
                 <?php endif; ?>
             </div>
-            <div class="col">
+            <div class="col medium">
             	<?php if(count($row['comments'])>0): ?>
                     
                 	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>#comments" class="comment full tt" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<?php foreach($row['comments'] as $c):?><b><?= $ordersModel->get_data('thecave_signatures',$c['signature_id'])?></b>: <?= $c['text'] ?><br><?php endforeach; ?>"><img src="<?= base_url() ?>public/images/comments.png" />
@@ -137,7 +133,7 @@ $ordersModel = new \App\Models\CaveOrdersModel();
                 	Arkiverad
             	<?php endif; ?>
             </div>
-        </div>    
+        </div>
         <?php endforeach; ?>
     </div>
 <?php elseif(isset($_GET['search'])): ?>

@@ -5,7 +5,7 @@
 <script>
     const tooltips = document.querySelectorAll('.tt')
     tooltips.forEach(t => {
-        new bootstrap.Tooltip(t)
+        new bootstrap.Tooltip(t, {customClass:'bg-white'})
     })
 </script>
 </body>
