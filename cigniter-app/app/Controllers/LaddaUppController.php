@@ -16,7 +16,6 @@ class LaddaUpp extends BaseController
 		$data['cutters']    = $this->orders->get_data('thecave_cutters');
 		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
 		$data['signatures'] = $this->orders->get_data('thecave_signatures');
-	
 		
 		view('ladda_upp', $data);
 	}

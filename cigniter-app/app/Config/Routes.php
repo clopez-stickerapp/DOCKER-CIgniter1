@@ -11,7 +11,7 @@ $routes = Services::routes();
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('OverviewController');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -30,6 +30,13 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'OverviewController::index');
+
+// Routes.php
+$routes->get('ladda_upp', 'LaddaUppController::index');
+$routes->get('ordrar', 'OrdrarController::index');
+$routes->get('printad', 'OrdrarController::printad');
+$routes->get('klar', 'OrdrarController::klar');
+$routes->get('arkiverad', 'OrdrarController::arkiverad');
 
 /*
  * --------------------------------------------------------------------
