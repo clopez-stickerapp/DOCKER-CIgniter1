@@ -1,12 +1,13 @@
 <?php
 $session = session();
 $uri = current_url(true);
+$ordersModel = new \App\Models\CaveOrdersModel();
 ?>
 <h1><?= $title ?></h1>
 
 <form name="search" id="search" action="<?= base_url() ?>ordrar/sok" method="get">
 <input type="text" name="search_text" class="text" value="<?= $text = !empty($_GET['search_text']) ? $_GET['search_text'] : '' ?>" />
-<input type="image" class="search" src="<?= base_url() ?>images/search.png" name="search" value="Sök" />
+<input type="image" class="search" src="<?= base_url() ?>public/images/search.png" name="search" value="Sök" />
 <?php if(!empty($_GET['search_text']) && 1==2): ?>
 	<a href=""><img src="<?= base_url() ?>images/remove.png" title="avbryt sökningen" class="remove" /></a>
 <?php endif; ?>
@@ -42,55 +43,55 @@ $uri = current_url(true);
             <div class="col small">
             	<a href="<?= base_url() ?>ordrar/order_by/id/<?= $uri->getSegment(2) ?>">ID</a>
                 <?php if($session->getTempdata('order_by') == 'id'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col small">
             	<a href="<?= base_url() ?>ordrar/order_by/id/<?= $uri->getSegment(2) ?>">Order ID</a>
                 <?php if($session->getTempdata('order_by') == 'oredr_id'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col large">
             	<a href="<?= base_url() ?>ordrar/order_by/name/<?= $uri->getSegment(2) ?>">Namn</a>
                 <?php if($session->getTempdata('order_by') == 'name'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col small">
             	<a href="<?= base_url() ?>ordrar/order_by/m2/<?= $uri->getSegment(2) ?>">m²</a>
                 <?php if($session->getTempdata('order_by') == 'm2'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col">
             	<a href="<?= base_url() ?>ordrar/order_by/material/<?= $uri->getSegment(2) ?>">Material</a>
                 <?php if($session->getTempdata('order_by') == 'material'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col">
             	<a href="<?= base_url() ?>ordrar/order_by/laminate/<?= $uri->getSegment(2) ?>">Laminat</a>
                 <?php if($session->getTempdata('order_by') == 'laminate'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col">
             	<a href="<?= base_url() ?>ordrar/order_by/cutter/<?= $uri->getSegment(2) ?>">Skärare</a>
                 <?php if($session->getTempdata('order_by') == 'cutter'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col">
             	<a href="<?= base_url() ?>ordrar/order_by/done_before/<?= $uri->getSegment(2) ?>">Klart senast</a>
                 <?php if($session->getTempdata('order_by') == 'done_before'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col">
             	<a href="<?= base_url() ?>ordrar/order_by/comments/<?= $uri->getSegment(2) ?>">Kommentarer</a>
                 <?php if($session->getTempdata('order_by') == 'comments'): ?>
-                	<img src="<?= base_url() ?>images/arrow_<?= $direction ?>.gif" class="sort_how"/>
+                	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
             <div class="col small">Status</div>
@@ -119,7 +120,10 @@ $uri = current_url(true);
             </div>
             <div class="col">
             	<?php if(count($row['comments'])>0): ?>
-                	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>#comments" title="<?php foreach($row['comments'] as $c):?><b><?= $this->orders->get_data('signatures',$c['signature_id'])?></b>: <?= $c['text'] ?><br><?php endforeach; ?>" class="comment full"><img src="<?= base_url() ?>images/comments.png" /> (<?= count($row['comments']) ?>)</a>
+                    
+                	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>#comments" class="comment full tt" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<?php foreach($row['comments'] as $c):?><b><?= $ordersModel->get_data('thecave_signatures',$c['signature_id'])?></b>: <?= $c['text'] ?><br><?php endforeach; ?>"><img src="<?= base_url() ?>public/images/comments.png" />
+                        (<?= count($row['comments']) ?>)
+                    </a>
                 <?php else: ?>
                 	&nbsp;
                 <?php endif; ?>
@@ -127,7 +131,7 @@ $uri = current_url(true);
             <div class="col small">
             	<?php if(!empty($row['new_status'])): ?>
                     <form action="<?= base_url() ?>ordrar/update_status/<?= $row['id'] ?>/<?= $row['new_status'] ?>/<?= $uri->getSegment(2) ?><?php if(isset($_GET['search_text'])): ?>/<?= $_GET['search_text']?><?php endif; ?>" method="post">
-                    <input type="submit" value="<?= $row['new_status'] ?>" class="button" />
+                        <input type="submit" value="<?= $row['new_status'] ?>" class="button" />
                     </form>
                 <?php else: ?>
                 	Arkiverad
