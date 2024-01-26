@@ -84,3 +84,9 @@ form#search .remove { float:left;margin:7px 0 0 5px; }
     text-overflow: ellipsis;
     display: block;
 }
+.bg-white {
+    background-color: white;
+    border: 1px solid black;
+    margin: 3px;
+    text-align: left;
+}
