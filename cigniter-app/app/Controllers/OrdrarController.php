@@ -113,7 +113,7 @@ class Ordrar extends BaseController
 		
 		$builder2 = $db->table('thecave_orders');
 		$builder2->delete('id', $id);
-//		mysql_query("DELETE FROM orders WHERE id='$id'");
+		//		mysql_query("DELETE FROM orders WHERE id='$id'");
 
 		$session->setTempdata('message','<p class="message success">Order #'.$id.' raderad</p>');
 		header('location:'.base_url().'ordrar/');
