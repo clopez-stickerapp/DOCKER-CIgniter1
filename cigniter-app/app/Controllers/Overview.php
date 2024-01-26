@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class OverviewController extends BaseController
+class Overview extends BaseController
 {
 
 	public function index() : string

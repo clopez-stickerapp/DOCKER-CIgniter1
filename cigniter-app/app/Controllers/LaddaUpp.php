@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class LaddaUpp extends BaseController
 {
-    public function index ( $id ) {
+    public function index ( $id = null ) {
 		if( $id ) {
 			$data = $this->orders->get( $id );
 		} elseif ( isset($_GET) ) {
@@ -17,7 +17,9 @@ class LaddaUpp extends BaseController
 		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
 		$data['signatures'] = $this->orders->get_data('thecave_signatures');
 		
-		view('ladda_upp', $data);
+		return view('head')
+				.view('ladda_upp', $data)
+				.view('foot');
 	}
 
     public function reprint($id) {

@@ -9,35 +9,50 @@ class Ordrar extends BaseController
 		$data['title'] = 'Ordrar';
 		$data['new_status'] = 'printad';
 		$data['orders'] = $this->orders->get('ny');
-		view('ordrar',$data);
+
+		return view('head')
+				.view('ordrar',$data)
+				.view('foot');
 	}
 
 	public function printad() {
 		$data['title'] = 'Printade';
 		$data['new_status'] = 'klar';
 		$data['orders'] = $this->orders->get('printad');
-		view('ordrar',$data);
+
+		return view('head')
+				.view('ordrar',$data)
+				.view('foot');
 	}
 
 	public function klar() {
 		$data['title'] = 'Klara';
 		$data['new_status'] = 'arkiverad';
 		$data['orders'] = $this->orders->get('klar');
-		view('ordrar',$data);
+
+		return view('head')
+				.view('ordrar',$data)
+				.view('foot');
 	}
 
 	public function arkiverad() {
 		$data['title'] = 'Arkiv';
 		$data['new_status'] = '';
 		$data['orders'] = $this->orders->get('arkiverad');
-		view('ordrar',$data);
+
+		return view('head')
+				.view('ordrar',$data)
+				.view('foot');
 	}
 
 	public function sok() {
 		$data['title'] = 'Sökning';
 		$data['new_status'] = '';
 		$data['orders'] = $this->orders->get();
-		view('ordrar',$data);
+		
+		return view('head')
+				.view('ordrar',$data)
+				.view('foot');
 	}
 
 	public function update_status($id,$new_status,$status, $sok = false) {

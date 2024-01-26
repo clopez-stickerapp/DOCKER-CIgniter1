@@ -6,7 +6,9 @@ class Settings extends BaseController
 {
 
 	public function index() {
-		view('settings');
+		return view('head')
+				.view('settings')
+				.view('foot');
 	}
 	
 	public function edit_data($table) {
@@ -30,7 +32,9 @@ class Settings extends BaseController
 		$data['table'] = $table;
 		$data['data'] = $this->orders->get_data($table);
 
-		view('settings_edit_data',$data);
+		return view('head')
+				.view('settings_edit_data',$data)
+				.view('foot');
 	}
 	
 	public function save_data($table) {
@@ -63,6 +67,3 @@ class Settings extends BaseController
 	}
 	
 }
-
-/* End of file welcome.php */
-/* Location: ./system/application/controllers/welcome.php */

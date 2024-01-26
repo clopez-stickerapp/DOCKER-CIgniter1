@@ -60,8 +60,7 @@ class App extends BaseConfig
      *
      * WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
      */
-    // this saved my life. might need to change again when deploying
-    public string $uriProtocol = 'QUERY_STRING';
+    public string $uriProtocol = 'REQUEST_URI';
 
     /**
      * --------------------------------------------------------------------------
