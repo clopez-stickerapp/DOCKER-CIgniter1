@@ -39,6 +39,7 @@ $routes->get('ordrar', 'Ordrar::index');
 $routes->get('ordrar/printad', 'Ordrar::printad');
 $routes->get('ordrar/klar', 'Ordrar::klar');
 $routes->get('ordrar/arkiverad', 'Ordrar::arkiverad');
+$routes->get('ordrar/visa/(:num)', 'Ordrar::visa/$1');
 
 $routes->get('settings', 'Settings::index');
 $routes->get('settings/edit_data/(.+)', 'Settings::edit_data/$1');

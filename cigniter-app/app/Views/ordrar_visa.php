@@ -1,3 +1,6 @@
+<?php
+    $ordersModel = new \App\Models\CaveOrdersModel();
+?>
 <script type="text/javascript">
 $(function() {
 	$("#done_before").datepicker({dateFormat: 'yy-mm-dd'});
@@ -80,7 +83,7 @@ function form_check() {
         <?php endforeach ?>
     </select>    
     <p class="label">Skapad av</p>
-	<p class="input"><?= $this->orders->get_data('signatures',$signature_id) ?></p>
+	<p class="input"><?= $ordersModel->get_data('thecave_signatures',$signature_id) ?></p>
     <input type="hidden" value="<?= $signature_id ?>" name="signature" />
     
     <input type="submit" value="Uppdatera" name="submit" class="submit" />
@@ -109,7 +112,7 @@ function form_check() {
 	<h2>Kommentarer</h2><a name="comments"></a>
     <?php foreach($comments as $c): ?>
     	<p class="comment">
-        	<b><?= $this->orders->get_data('signatures',$c['signature_id'])?></b>
+        	<b><?= $ordersModel->get_data('thecave_signatures',$c['signature_id'])?></b>
             <small>(<?= date('d-m-y h:i',$c['created']) ?>)</small>:<br />
 			<?= $c['text'] ?>
     	</p>

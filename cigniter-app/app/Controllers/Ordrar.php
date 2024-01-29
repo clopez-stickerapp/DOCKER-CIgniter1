@@ -81,7 +81,9 @@ class Ordrar extends BaseController
 		$data['laminates'] 	= $this->orders->get_data('thecave_laminates');
 		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
 		$data['signatures'] = $this->orders->get_data('thecave_signatures');
-		view('ordrar_visa',$data);
+		return view('head')
+				.view('ordrar_visa',$data)
+				.view('foot');
 	}
 
 	public function add_comment($order_id) {
