@@ -13,23 +13,24 @@ class Settings extends BaseController
 	
 	public function edit_data($table) {
 		switch($table) {
-			case 'thecave_signatures':
+			case 'signatures':
 				$table_title = 'Signaturer';
 				break;
-			case 'thecave_materials':
+			case 'materials':
 				$table_title = 'Material';
 				break;
-			case 'thecave_laminates':
+			case 'laminates':
 				$table_title = 'Laminat';
 				break;
-			case 'thecave_cutters':
+			case 'cutters':
 				$table_title = 'Skärare';
 				break;
 			default:
 				break;
 		}
 		$data['table_title'] = $table_title;
-		$data['table'] = $table;
+		$table = 'thecave_' . $table;
+		$data['table'] =$table;
 		$data['data'] = $this->orders->get_data($table);
 
 		return view('head')
