@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Publisher\Publisher;
 
 class CaveOrdersModel extends Model
 {
@@ -107,7 +108,7 @@ class CaveOrdersModel extends Model
 			}
 
 			if(!empty($row['image']) && file_exists('files/'.$row['image'])) {
-				$filename = 'files/'.$row['image'];
+				$filename = 'public/uploads/'.$row['image'];
 				$file = pathinfo($row['image'], PATHINFO_FILENAME);
 			} else {
 				$filename = 'no_image.jpg';
@@ -115,12 +116,23 @@ class CaveOrdersModel extends Model
 			}
 			$orders[$i]['image_url'] = base_url(). $filename;
 			
-			$saveLocation = '/writable/uploads/thumb/' . $file . '_thumb.jpg';
-			$imageService->withFile( 'public/images/' . $filename )
-				->fit(100, 100, 'center')
-				->save( $PATH . $saveLocation ); // $PATH necessary to save thumb
-			
-			$orders[$i]['thumb_url'] = $PATH . $saveLocation;
+			$saveLocation = '/writable/uploads/thumbs/' . $file . '_thumb.jpg';
+
+			if ($file == 'no_image') {
+				$imageService->withFile( 'public/images/' . $filename )
+				->fit(100, 100, 'center');
+			} else {
+				$imageService->withFile( 'public/uploads/' . $filename )
+				->fit(100, 100, 'center');
+			}
+
+			// $PATH necessary to save thumb
+			if ( $imageService->save( $PATH . $saveLocation ) ) {
+				$imgPublisher = new Publisher($PATH .'/writable/uploads/thumbs/', $PATH .'/public/uploads/thumbs/');
+				$imgPublisher->addFile( $PATH . $saveLocation )->copy(true);
+			}
+
+			$orders[$i]['thumb_url'] = '/public/uploads/thumbs/' . $file . '_thumb.jpg';
 			if($row['done_before'] == '0000-00-00') {
 				$orders[$i]['done_before'] = '&nbsp;';
 			}

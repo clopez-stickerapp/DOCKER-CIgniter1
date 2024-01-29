@@ -8,7 +8,3 @@
 <span class="input">(<b><?= $klara ?></b>)</span>
 <span class="label"><a href="<?= base_url() ?>ordrar/arkiverad">Arkiverade</a></span>
 <span class="input">(<b><?= $arkiverade ?></b>)</span>
-
-<?php
-phpinfo();
-?>

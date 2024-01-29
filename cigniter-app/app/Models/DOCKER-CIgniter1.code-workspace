@@ -1,10 +1,10 @@
 {
     "folders": [
         {
-            "path": "../../../../Downloads/web/thecave"
+            "path": "../../.."
         },
         {
-            "path": "../../.."
+            "path": "../../../../Downloads/web/thecave"
         }
     ]
 }
