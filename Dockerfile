@@ -15,7 +15,8 @@ RUN apt-get update -y && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
-    libzip-dev 
+    libzip-dev \
+    nano
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
