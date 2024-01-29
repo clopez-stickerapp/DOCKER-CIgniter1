@@ -34,7 +34,7 @@ function form_check() {
         <a class="left clear" target="_blank" href="<?= base_url() ?>files/<?= $file1 ?>"><?= $file1 ?></a>
         <input type="file" name="thefile1" id="thefile1" class="input"/>
         <h2 class="left clear no-margin">Fler filer</h2>
-        <a class="left clear" class="clear" target="_blank" href="<?= base_url() ?>files/<?= $file2 ?>"><?= $file2 ?></a>
+        <a class="left clear" class="clear" target="_blank" href="<?= base_url()?>files/<?= $file2 ?>"><?= $file2 ?></a>
         <input type="file" name="thefile2" id="thefile1" class="input"/>
         <a class="left clear" target="_blank" href="<?= base_url() ?>files/<?= $file3 ?>"><?= $file3 ?></a>
         <input type="file" name="thefile3" id="thefile1" class="input"/>
