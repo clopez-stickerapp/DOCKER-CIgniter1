@@ -93,7 +93,8 @@ class LaddaUpp extends BaseController
             if($query->getNumRows() > 0) {
                 $i = 2;
                 while($query->getNumRows() > 0) {
-                    $ext = end(explode('.',$image));
+					$parts = explode('.',$image);
+                    $ext = end($parts);
                     $new_name = substr($image,0,strlen($image)-strlen($ext)-1);
                     $new_name = $new_name.'-'.$i.'.'.$ext;
 
@@ -191,7 +192,7 @@ class LaddaUpp extends BaseController
 				$builder2->insert($arr);
 			}
 			$session->setTempdata('message',"<p class='message success'>Order '<b>".$name."'</b> laddades upp</p>");
-			redirect(base_url().'ordrar');
+			return redirect()->to(base_url().'ordrar');
 		} else {
             $builder->resetQuery();
 
@@ -215,7 +216,7 @@ class LaddaUpp extends BaseController
 			}
 			
 			$session->setTempdata('message',"<p class='message success'>Order '<b>".$name."'</b> uppdaterades</p>");
-			redirect(base_url().'ordrar/visa/'.$id);
+			return redirect()->to(base_url().'ordrar/visa/'.$id);
 		}
 	}
 }

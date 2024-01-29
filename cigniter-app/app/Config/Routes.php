@@ -43,7 +43,7 @@ $routes->get('ordrar', 'Ordrar::index');
 $routes->get('ordrar/printad', 'Ordrar::printad');
 $routes->get('ordrar/klar', 'Ordrar::klar');
 $routes->get('ordrar/arkiverad', 'Ordrar::arkiverad');
-$routes->get('ordrar/visa/(:num)', 'Ordrar::visa/$1');
+$routes->get('ordrar/visa/(:segment)', 'Ordrar::visa/$1');
 $routes->post('ordrar/update_status/(:num)/(:alpha)/(:alpha)/(.*)', 'Ordrar::update_status/$1/$2/$3/$4');
 
 $routes->get('settings', 'Settings::index');
