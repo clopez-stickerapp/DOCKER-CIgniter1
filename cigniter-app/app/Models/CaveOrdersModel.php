@@ -132,7 +132,11 @@ class CaveOrdersModel extends Model
 				$imgPublisher->addFile( $PATH . $saveLocation )->copy(true);
 			}
 
-			$orders[$i]['thumb_url'] = '/public/uploads/thumbs/' . $file . '_thumb.jpg';
+			$ext   = pathinfo($filename, PATHINFO_EXTENSION);
+			$thumb = basename($filename, ".$ext") . '_thumb.' . $ext;
+			$orders[$i]['thumb_url'] = '/public/uploads/thumbs/' . $thumb;
+
+
 			if($row['done_before'] == '0000-00-00') {
 				$orders[$i]['done_before'] = '&nbsp;';
 			}
