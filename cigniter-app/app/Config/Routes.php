@@ -34,6 +34,7 @@ $routes->set404Override();
 $routes->get('/', 'Overview::index');
 
 $routes->get('ladda_upp', 'LaddaUpp::index');
+$routes->get('ladda_upp/reprint/(:num)', 'LaddaUpp::reprint/$1');
 $routes->post('ladda_upp/upload', 'LaddaUpp::upload');
 $routes->post('ladda_upp/upload/(:num)', 'LaddaUpp::upload/$1');
 
@@ -43,8 +44,11 @@ $routes->get('ordrar', 'Ordrar::index');
 $routes->get('ordrar/printad', 'Ordrar::printad');
 $routes->get('ordrar/klar', 'Ordrar::klar');
 $routes->get('ordrar/arkiverad', 'Ordrar::arkiverad');
-$routes->get('ordrar/visa/(:segment)', 'Ordrar::visa/$1');
-$routes->post('ordrar/update_status/(:num)/(:alpha)/(:alpha)/(.*)', 'Ordrar::update_status/$1/$2/$3/$4');
+$routes->get('ordrar/visa/(:num)', 'Ordrar::visa/$1');
+$routes->get('ordrar/radera/(:num)', 'Ordrar::radera/$1');
+$routes->get('ordrar/sok', 'Ordrar::sok');
+$routes->post('ordrar/update_status/(:num)/(.*)/(.*)/(.*)', 'Ordrar::update_status/$1/$2/$3/$4');
+$routes->post('ordrar/add_comment/(:num)', 'Ordrar::add_comment/$1');
 
 $routes->get('settings', 'Settings::index');
 $routes->get('settings/edit_data/(.+)', 'Settings::edit_data/$1');

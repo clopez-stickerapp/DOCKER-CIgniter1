@@ -126,7 +126,7 @@ $ordersModel = new \App\Models\CaveOrdersModel();
             </div>
             <div class="col small">
             	<?php if(!empty($row['new_status'])): ?>
-                    <form action="<?= base_url() ?>ordrar/update_status/<?= $row['id'] ?>/<?= $row['new_status'] ?>/<?= $uri->getSegment(2) ?><?php if(isset($_GET['search_text'])): ?>/<?= $_GET['search_text']?><?php endif; ?>" method="post">
+                    <form action="<?= base_url() ?>ordrar/update_status/<?= $row['id'] ?>/<?= $row['new_status'] ?>/<?= $uri->getSegment(2) ?><?= isset($_GET['search_text']) ? '/'.$_GET['search_text'] : '/-'  ?>" method="post">
                         <input type="submit" value="<?= $row['new_status'] ?>" class="button" />
                     </form>
                 <?php else: ?>

@@ -55,7 +55,7 @@ class Ordrar extends BaseController
 				.view('foot');
 	}
 
-	public function update_status($id,$new_status,$status, $sok = '') {
+	public function update_status($id, $new_status, $status = '', $sok = '') {
 		$session = session();
 		$db      = \Config\Database::connect();
 		$builder = $db->table('thecave_orders');
@@ -71,7 +71,7 @@ class Ordrar extends BaseController
 		if(!empty($sok)) {
 			$status .= '?mekk=mekk&search_text=' . $sok;
 		}
-		redirect(base_url().'ordrar/'.$status);
+		return redirect()->to(base_url().'ordrar/'.$new_status);
 	}
 
 	public function visa($id) {
@@ -101,13 +101,13 @@ class Ordrar extends BaseController
 		$builder->set($arr);
 		$builder->insert();
 		$session->setTempdata('message','<p class="message success">Kommentar sparad</p>');
-		header('location:'.base_url().'ordrar/visa/'.$order_id);
+		return redirect()->to(base_url().'ordrar/visa/'.$order_id);
 	}
 
 	public function save_order() {
 	}
 
-	public function order_by($order_by,$return='') {
+	public function order_by($order_by, $return='') {
 		$session = session();
 
 		$session->setTempdata('order_by',$order_by);
@@ -117,23 +117,23 @@ class Ordrar extends BaseController
 			$session->setTempdata('order_how','DESC');
 		}
 
-		header('location:'.base_url().'ordrar/'.$return);
+		return redirect()->to(base_url().'ordrar/'.$return);
 	}
 
 	public function radera($id) {
 		$session = session();
 		$db      = \Config\Database::connect();
-		$builder = $db->table('thecave_comments');
+		$builder = $db->table('thecave_orders');
+		$builder2 = $db->table('thecave_comments');
 
-		$builder->delete('order_id', $id);
+		$builder->delete(['id' => $id]);
 		//		mysql_query("DELETE FROM comments WHERE order_id='$id'");
 		
-		$builder2 = $db->table('thecave_orders');
-		$builder2->delete('id', $id);
+		$builder2->delete(['order_id' => $id]);
 		//		mysql_query("DELETE FROM orders WHERE id='$id'");
 
 		$session->setTempdata('message','<p class="message success">Order #'.$id.' raderad</p>');
-		header('location:'.base_url().'ordrar/');
+		return redirect()->to(base_url().'ordrar/');
 	}
 
 }

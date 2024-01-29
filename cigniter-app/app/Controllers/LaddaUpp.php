@@ -23,7 +23,7 @@ class LaddaUpp extends BaseController
 	}
 
     public function reprint($id) {
-		$this->index($id);
+		return $this->index($id);
 	}
 	
 	public function upload($id = false) {
