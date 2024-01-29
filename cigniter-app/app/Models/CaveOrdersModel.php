@@ -41,6 +41,8 @@ class CaveOrdersModel extends Model
         $session = session();
 		$db = \Config\Database::connect();
 		$builder = $db->table($this->table);
+		$imageService = \Config\Services::image();
+		$PATH = getcwd();
 
 		//Set default order by
 		if( $session->getTempdata('order_by') == '' ) {
@@ -106,11 +108,19 @@ class CaveOrdersModel extends Model
 
 			if(!empty($row['image']) && file_exists('files/'.$row['image'])) {
 				$filename = 'files/'.$row['image'];
+				$file = pathinfo($row['image'], PATHINFO_FILENAME);
 			} else {
-				$filename = 'images/no_image.jpg';
+				$filename = 'no_image.jpg';
+				$file = 'no_image';
 			}
-			$orders[$i]['image_url'] = base_url().$filename;
-			$orders[$i]['thumb_url'] = base_url().'timthumb.php?src=/'.$filename.'&h=150&w=150&zc=1';
+			$orders[$i]['image_url'] = base_url(). $filename;
+			
+			$saveLocation = '/public/uploads/thumb/' . $file . '_thumb.jpg';
+			$imageService->withFile( 'public/images/' . $filename )
+				->fit(100, 100, 'center')
+				->save( $PATH . $saveLocation ); // $PATH necessary to save thumb
+			
+			$orders[$i]['thumb_url'] = $saveLocation;
 			if($row['done_before'] == '0000-00-00') {
 				$orders[$i]['done_before'] = '&nbsp;';
 			}
