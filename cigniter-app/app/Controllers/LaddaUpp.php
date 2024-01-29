@@ -70,7 +70,7 @@ class LaddaUpp extends BaseController
                     $file = $new_name;
                 }
 				$files[$i] = $file;
-				$target_path = "files/" . $files[$i]; 
+				$target_path = "files/" . $files[$i];
 				move_uploaded_file($_FILES['thefile'.$i]['tmp_name'], $target_path);
 			}
 		}
@@ -190,7 +190,7 @@ class LaddaUpp extends BaseController
 				$builder->insert($arr);
 			}
 			$session->setTempdata('message',"<p class='message success'>Order '<b>".$name."'</b> laddades upp</p>");
-			header('location:'.base_url().'ordrar');
+			redirect(base_url().'ordrar');
 		} else {
             $builder->resetQuery();
 
@@ -214,7 +214,7 @@ class LaddaUpp extends BaseController
 			}
 			
 			$session->setTempdata('message',"<p class='message success'>Order '<b>".$name."'</b> uppdaterades</p>");
-			header('location:'.base_url().'ordrar/visa/'.$id);
+			redirect(base_url().'ordrar/visa/'.$id);
 		}
 	}
 }

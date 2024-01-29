@@ -115,12 +115,12 @@ class CaveOrdersModel extends Model
 			}
 			$orders[$i]['image_url'] = base_url(). $filename;
 			
-			$saveLocation = '/public/uploads/thumb/' . $file . '_thumb.jpg';
+			$saveLocation = '/writable/uploads/thumb/' . $file . '_thumb.jpg';
 			$imageService->withFile( 'public/images/' . $filename )
 				->fit(100, 100, 'center')
 				->save( $PATH . $saveLocation ); // $PATH necessary to save thumb
 			
-			$orders[$i]['thumb_url'] = $saveLocation;
+			$orders[$i]['thumb_url'] = $PATH . $saveLocation;
 			if($row['done_before'] == '0000-00-00') {
 				$orders[$i]['done_before'] = '&nbsp;';
 			}

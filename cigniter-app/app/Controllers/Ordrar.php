@@ -55,7 +55,7 @@ class Ordrar extends BaseController
 				.view('foot');
 	}
 
-	public function update_status($id,$new_status,$status, $sok = false) {
+	public function update_status($id,$new_status,$status, $sok = '') {
 		$session = session();
 		$db      = \Config\Database::connect();
 		$builder = $db->table('thecave_orders');
@@ -68,10 +68,10 @@ class Ordrar extends BaseController
 		$session->setTempdata('message',"<p class='message success'>Order ID <b>".$id.
 			"</b>, '<b>".$order['name']."</b>' har markerats som '<span class='capatalize'><b>".$new_status.
 			"</b></span>'</p>");
-		if($sok) {
+		if(!empty($sok)) {
 			$status .= '?mekk=mekk&search_text=' . $sok;
 		}
-		header('location:'.base_url().'ordrar/'.$status);
+		redirect(base_url().'ordrar/'.$status);
 	}
 
 	public function visa($id) {

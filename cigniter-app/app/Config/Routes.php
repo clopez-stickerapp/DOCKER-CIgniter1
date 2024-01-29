@@ -34,12 +34,14 @@ $routes->set404Override();
 $routes->get('/', 'Overview::index');
 
 $routes->get('ladda_upp', 'LaddaUpp::index');
+$routes->post('ladda_upp/upload/(:num)', 'LaddaUpp::upload/$1');
 
 $routes->get('ordrar', 'Ordrar::index');
 $routes->get('ordrar/printad', 'Ordrar::printad');
 $routes->get('ordrar/klar', 'Ordrar::klar');
 $routes->get('ordrar/arkiverad', 'Ordrar::arkiverad');
 $routes->get('ordrar/visa/(:num)', 'Ordrar::visa/$1');
+$routes->post('ordrar/update_status/(:num)/(:alpha)/(:alpha)/(.*)', 'Ordrar::update_status/$1/$2/$3/$4');
 
 $routes->get('settings', 'Settings::index');
 $routes->get('settings/edit_data/(.+)', 'Settings::edit_data/$1');
