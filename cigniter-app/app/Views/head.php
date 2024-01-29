@@ -36,3 +36,4 @@
     <div id="content_wrapper">
     	<div id="content">
         	<?= $session->getTempdata('message'); ?>
+        	<?php $session->remove('message'); ?>

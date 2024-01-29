@@ -70,7 +70,7 @@ class LaddaUpp extends BaseController
                     $file = $new_name;
                 }
 				$files[$i] = $file;
-				$target_path = "files/" . $files[$i];
+				$target_path = "public/uploads/" . $files[$i];
 				move_uploaded_file($_FILES['thefile'.$i]['tmp_name'], $target_path);
 			}
 		}
@@ -111,7 +111,7 @@ class LaddaUpp extends BaseController
                 $image = $new_name;
             }
 			
-			$target_path = "files/" . $image;
+			$target_path = "public/uploads/" . $image;
 			move_uploaded_file($_FILES['theimage']['tmp_name'], $target_path);
 		}
 
@@ -181,13 +181,14 @@ class LaddaUpp extends BaseController
 			
 			//Comment
 			if(!empty($comment)) {
-				$builder->set(array(
+				$builder2 = $db->table('thecave_comments');
+				$builder2->set(array(
 								'text'		=>	$comment,
 								'signature_id'	=> $signature,
 								'order_id'	=>	$id,
 								'created'	=>	time()
 							));
-				$builder->insert($arr);
+				$builder2->insert($arr);
 			}
 			$session->setTempdata('message',"<p class='message success'>Order '<b>".$name."'</b> laddades upp</p>");
 			redirect(base_url().'ordrar');

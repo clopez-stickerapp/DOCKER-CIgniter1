@@ -34,7 +34,10 @@ $routes->set404Override();
 $routes->get('/', 'Overview::index');
 
 $routes->get('ladda_upp', 'LaddaUpp::index');
+$routes->post('ladda_upp/upload', 'LaddaUpp::upload');
 $routes->post('ladda_upp/upload/(:num)', 'LaddaUpp::upload/$1');
+
+$routes->get('files/(:segment)', 'Files::view/$1');
 
 $routes->get('ordrar', 'Ordrar::index');
 $routes->get('ordrar/printad', 'Ordrar::printad');
