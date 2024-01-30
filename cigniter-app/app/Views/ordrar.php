@@ -1,7 +1,7 @@
 <?php
 $uri = current_url(true);
 $ordersModel = new \App\Models\CaveOrdersModel();
-$cave = $session->getTempdata("whichCave") ?? 'cave';
+$cave = $session->get("whichCave") ?? 'cave';
 ?>
 <h1><?= $title ?></h1>
 

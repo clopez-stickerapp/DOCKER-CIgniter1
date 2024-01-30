@@ -1,5 +1,5 @@
 <?php
-$cave = $session->getTempdata("whichCave") ?? 'cave';
+$cave = $session->get("whichCave") ?? 'cave';
 ?>
 <h1>Översikt</h1>
 

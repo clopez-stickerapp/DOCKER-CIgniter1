@@ -42,12 +42,14 @@ class Settings extends BaseController
 			default:
 				break;
 		}
+		$session = $this->session;
+
 		$data['table_title'] = $table_title;
 		$data['table'] = $table_name;
 		$data['data'] = $this->orders->get_data($table_name);
-		$data['session'] = $this->session;
+		$data['session'] = $session;
 
-		return view('head', ['session', $this->session])
+		return view('head', ['session' => $session])
 				.view('settings_edit_data', $data)
 				.view('foot');
 	}

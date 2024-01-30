@@ -1,5 +1,5 @@
 <?php
-    $cave = $session->getTempdata("whichCave") ?? 'cave';
+    $cave = $session->get("whichCave") ?? 'cave';
     $arr = explode('/', $_SERVER['REQUEST_URI']);
     $site = end($arr);
 ?>

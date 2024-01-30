@@ -72,13 +72,17 @@ class Ordrar extends BaseController
 
 	public function visa($id) {
 		$session = $this->session;
+		$cave = $session->get("whichCave") ?? 'cave';
+
+		$dbPrefix = $cave == 'cave' ? 'thecave_' : 'thelasercave_';
+
 
 		$data = $this->orders->get($id);
-		$data['materials'] 	= $this->orders->get_data('thecave_materials');
-		$data['cutters'] 	= $this->orders->get_data('thecave_cutters');
-		$data['laminates'] 	= $this->orders->get_data('thecave_laminates');
-		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
-		$data['signatures'] = $this->orders->get_data('thecave_signatures');
+		$data['materials'] 	= $this->orders->get_data($dbPrefix . 'materials');
+		$data['cutters'] 	= $this->orders->get_data($dbPrefix . 'cutters');
+		$data['laminates'] 	= $this->orders->get_data($dbPrefix . 'laminates');
+		$data['leveranser'] = $this->orders->get_data($dbPrefix . 'leveranser');
+		$data['signatures'] = $this->orders->get_data($dbPrefix . 'signatures');
 		$data['session'] 	= $this->session;
 
 		return view('head', ['session' => $session])
