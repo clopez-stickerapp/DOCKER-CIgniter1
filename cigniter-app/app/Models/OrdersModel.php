@@ -52,6 +52,9 @@ class OrdersModel extends Model
 		$db = \Config\Database::connect($this->dbGroup);
 		$builder = $db->table($this->table);
 		$imageService = \Config\Services::image();
+		
+		$cave = $session->get("whichCave") ?? 'cave';
+		$caveName = $cave == 'cave' ? 'cave' : 'laser';
 		$PATH = getcwd();
 
 		//Set default order by
@@ -116,8 +119,8 @@ class OrdersModel extends Model
 				$orders[$i]['new_status'] = '';
 			}
 
-			if(!empty($row['image']) && file_exists('public/uploads/'.$row['image'])) {
-				$filename = 'public/uploads/'.$row['image'];
+			if(!empty($row['image']) && file_exists('public/uploads/'.$caveName.'/'.$row['image'])) {
+				$filename = 'public/uploads/'.$caveName.'/'.$row['image'];
 				$file = pathinfo($row['image'], PATHINFO_FILENAME);
 			} else {
 				$filename = 'public/images/no_image.jpg';
@@ -126,7 +129,7 @@ class OrdersModel extends Model
 			$ext   = pathinfo($filename, PATHINFO_EXTENSION);
 			$thumb = basename($filename, ".$ext") . '_thumb.' . $ext;
 
-			$saveLocation = '/writable/uploads/thumbs/' . $file . '_thumb.' . $ext;
+			$saveLocation = '/writable/uploads/'.$caveName.'/thumbs/' . $file . '_thumb.' . $ext;
 			
 			try {
 				$imageService->withFile( $filename )
@@ -134,7 +137,7 @@ class OrdersModel extends Model
 
 				// $PATH necessary to save thumb
 				if ( $imageService->save( $PATH . $saveLocation ) ) {
-					$imgPublisher = new Publisher($PATH .'/writable/uploads/thumbs/', $PATH .'/public/uploads/thumbs/');
+					$imgPublisher = new Publisher($PATH .'/writable/uploads/'.$caveName.'/thumbs/', $PATH .'/public/uploads/'.$caveName.'/thumbs/');
 					$imgPublisher->addFile( $PATH . $saveLocation )->copy(true);
 				}
 			} catch (\Exception $e) {
@@ -145,7 +148,7 @@ class OrdersModel extends Model
 			}
 			
 			$orders[$i]['image_url'] = base_url(). $filename;
-			$orders[$i]['thumb_url'] = base_url(). 'public/uploads/thumbs/' . $thumb;
+			$orders[$i]['thumb_url'] = base_url(). 'public/uploads/'.$caveName.'/thumbs/' . $thumb;
 
 			if($row['done_before'] == '0000-00-00') {
 				$orders[$i]['done_before'] = '&nbsp;';

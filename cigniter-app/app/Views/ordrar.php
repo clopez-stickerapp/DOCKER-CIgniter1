@@ -42,7 +42,7 @@ $cave = $session->get("whichCave") ?? 'cave';
             </div>
             <div class="col medium">
             	<a href="<?= base_url() ?>ordrar/order_by/id/<?= $uri->getSegment(2) ?>">Order ID</a>
-                <?php if($session->getTempdata('order_by') == 'oredr_id'): ?>
+                <?php if($session->getTempdata('order_by') == 'order_id'): ?>
                 	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
@@ -93,7 +93,7 @@ $cave = $session->get("whichCave") ?? 'cave';
            
         <?php foreach($orders as $row): ?>
             <?php if($cave == 'laser'): ?>
-                <div class="row" <?php if($row['error']==2): ?> style="background-color:#CCFFCC;" <?php endif; ?> <?php if($row['error']==1): ?> style="background-color:red" <?php endif; ?>>
+                <div class="row" <?php if($row['error']==2): ?> style="background-color:#CCFFCC;" <?php endif; ?> <?php if($row['error']==1): ?> style="background-color:#ff7373" <?php endif; ?>>
             <?php else: ?>
                 <div class="row">
             <?php endif; ?>
@@ -110,7 +110,9 @@ $cave = $session->get("whichCave") ?? 'cave';
                 <div class="col"><?= $row['cutter_name'] ?></div>
                 <div class="col">
                     <?php $days = round((strtotime($row['done_before']) - strtotime(date('Y-m-d'))) / 86400); ?>
-                    <?php if($days <= 3 && $row['done_before'] != '&nbsp;'): ?>
+                    <?php if($days <= 3 && $row['done_before'] != '&nbsp;' && isset($row['error']) && $row['error']==1): ?>
+                        <span class="blue-warning"><?= $row['done_before'] ?></span>
+                    <?php elseif($days <= 3 && $row['done_before'] != '&nbsp;'): ?>
                         <span class="warning"><?= $row['done_before'] ?></span>
                     <?php else: ?>
                         <?= $row['done_before'] ?>

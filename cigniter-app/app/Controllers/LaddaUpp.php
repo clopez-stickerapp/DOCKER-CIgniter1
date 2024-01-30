@@ -33,6 +33,9 @@ class LaddaUpp extends BaseController
         $db      = \Config\Database::connect($this->dbGroup);
         $builder = $db->table('orders');
 
+		$cave = $this->session->get("whichCave") ?? 'cave';
+		$caveName = $cave == 'cave' ? 'cave' : 'laser';
+
 		//Filerna
 		$files = array();
 		for($i=1; $i<=5; $i++) {
@@ -71,7 +74,7 @@ class LaddaUpp extends BaseController
                     $file = $new_name;
                 }
 				$files[$i] = $file;
-				$target_path = "public/uploads/" . $files[$i];
+				$target_path = "public/uploads/". $caveName .'/' . $files[$i];
 				move_uploaded_file($_FILES['thefile'.$i]['tmp_name'], $target_path);
 			}
 		}
@@ -113,7 +116,7 @@ class LaddaUpp extends BaseController
                 $image = $new_name;
             }
 			
-			$target_path = "public/uploads/" . $image;
+			$target_path = "public/uploads/". $caveName .'/' . $image;
 			move_uploaded_file($_FILES['theimage']['tmp_name'], $target_path);
 		}
 

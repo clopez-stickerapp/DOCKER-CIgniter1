@@ -181,6 +181,7 @@ class Ordrar extends BaseController
 		} else {
 			$new_error = 2;
 		}
+		$builder->where('id', $order_id);
 		$builder->set(array('error' => $new_error));
 		$builder->update();
 		$session->setTempdata('message','<p class="message success">Error status uppdaterad</p>');
