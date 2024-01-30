@@ -46,7 +46,7 @@
         </ul>
         
         <a class="settings" href="<?= base_url() ?>settings">Inställningar</a>
-        <a class="change-cave" href="<?= base_url() ?>overview/change_cave">Change Cave</a>
+        <a class="change-cave" href="<?= base_url() ?>overview/change_cave"><b>Change Cave</b></a>
 	</div>
     <div id="content_wrapper">
     	<div id="content">

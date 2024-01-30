@@ -45,6 +45,8 @@ $routes->get('ordrar', 'Ordrar::index');
 $routes->get('ordrar/printad', 'Ordrar::printad');
 $routes->get('ordrar/klar', 'Ordrar::klar');
 $routes->get('ordrar/arkiverad', 'Ordrar::arkiverad');
+$routes->get('ordrar/pp_klar', 'Ordrar::pp_klar');
+$routes->get('ordrar/laser_klar', 'Ordrar::laser_klar');
 $routes->get('ordrar/sok', 'Ordrar::sok');
 $routes->get('ordrar/visa/(:num)', 'Ordrar::visa/$1');
 $routes->get('ordrar/radera/(:num)', 'Ordrar::radera/$1');
