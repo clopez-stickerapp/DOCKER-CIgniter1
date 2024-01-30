@@ -9,9 +9,7 @@ class CaveCommentsSeeder extends Seeder
     public function run()
     {
         // Simple Queries
-        $this->db->query('
-            INSERT INTO thecave_comments (id, order_id, signature_id, created, text) VALUES (12845, 24618, 18, 1669726498, "utskuten vinyl VIT med appliceringsfilm. 11 st olika"),
-            (12846, 24623, 18, 1670323684, "1 ST PRINTFIL MED VARIABLTRYCK. 1 ST FIL MED TEST FÖR ATT STÄLLA IN epoxyn\n"),
+        $this->db->query('INSERT INTO thecave_comments (id, order_id, signature_id, created, text) VALUES (12845, 24618, 18, 1669726498, "utskuten vinyl VIT med appliceringsfilm. 11 st olika"), (12846, 24623, 18, 1670323684, "1 ST PRINTFIL MED VARIABLTRYCK. 1 ST FIL MED TEST FÖR ATT STÄLLA IN epoxyn\n"),
             (12847, 24625, 18, 1670333746, "Variabeltryck- lägg dem i ordning innan de skickas- arken är numrerade"),
             (12848, 24626, 18, 1670340725, "LÄGG DEM I ORDNING, ARKEN ÄR NUMRERADE"),
             (12849, 24633, 18, 1670490911, "LÄGG ARKEN I ORDNING, DE ÄR NUMRERADE. TACK"),
