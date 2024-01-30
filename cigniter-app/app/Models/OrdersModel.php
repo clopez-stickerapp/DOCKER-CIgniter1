@@ -7,12 +7,13 @@ use CodeIgniter\Publisher\Publisher;
 
 class OrdersModel extends Model
 {
-    protected $table      = 'thecave_orders';
-    protected $primaryKey = 'id';
+    public string $dbPrefix;
+    protected string $table;
+    protected $primaryKey	= 'id';
 
     protected $useAutoIncrement = true;
 
-    protected $returnType     = 'array';
+    protected $returnType	= 'array';
 
     protected $allowedFields = [
         'id',
@@ -37,6 +38,14 @@ class OrdersModel extends Model
         'leverans',
         'signature_id',
     ];
+
+	protected function initialize()
+    {
+		$cave 			= $this->session->get("whichCave") ?? 'cave';
+
+		$this->dbPrefix = $cave == 'cave' ? 'thecave_' : 'thelasercave_';
+		$this->table 	= $this->dbPrefix .'orders';
+    }
 
     public function get( $status = false) {
         $session = session();
@@ -82,7 +91,7 @@ class OrdersModel extends Model
 			$order_how = $session->getTempdata('order_how');
 			
 			if($order_by == 'comments') {
-				$builder->select("*, (SELECT count(order_id) FROM thecave_comments WHERE order_id=orders.id) AS comments");
+				$builder->select("*, (SELECT count(order_id) FROM ". $this->dBPrefix ."comments WHERE order_id=orders.id) AS comments");
 			}
 			
 			$builder->orderBy($order_by, $order_how);
@@ -94,9 +103,9 @@ class OrdersModel extends Model
 		foreach($q->getResultArray() as $row) {
 			$orders[$i] = $row;
 			$orders[$i]['order_id'] = empty($row['order_id']) ? '&nbsp;' : $row['order_id'];
-			$orders[$i]['material_name'] = $this->get_data('thecave_materials', $row['material']);
-			$orders[$i]['laminate_name'] = $this->get_data('thecave_laminates', $row['laminate']);
-			$orders[$i]['cutter_name'] = $this->get_data('thecave_cutters', $row['cutter']);
+			$orders[$i]['material_name'] = $this->get_data($this->dbPrefix . 'materials', $row['material']);
+			$orders[$i]['laminate_name'] = $this->get_data($this->dbPrefix . 'laminates', $row['laminate']);
+			$orders[$i]['cutter_name'] = $this->get_data($this->dbPrefix . 'cutters', $row['cutter']);
 			if($row['status'] == 'ny') {
 				$orders[$i]['new_status'] = 'printad';
 			} elseif($row['status'] == 'printad') {
@@ -146,7 +155,7 @@ class OrdersModel extends Model
 			//Comments
 			$orders[$i]['comments'] = array();
 
-			$builder2 = $db->table('thecave_comments');
+			$builder2 = $db->table($this->dbPrefix . 'comments');
 			$builder2->where('order_id', $row['id']);
 			$builder2->orderBy('id','asc');
 			$q = $builder2->get();

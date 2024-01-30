@@ -107,8 +107,8 @@ class Ordrar extends BaseController
 	public function radera($id) {
 		$session = $this->session;
 		$db      = \Config\Database::connect();
-		$builder = $db->table('thecave_orders');
-		$builder2 = $db->table('thecave_comments');
+		$builder = $db->table($this->dbPrefix . 'orders');
+		$builder2 = $db->table($this->dbPrefix . 'comments');
 
 		$builder->delete(['id' => $id]);
 		//		mysql_query("DELETE FROM comments WHERE order_id='$id'");
@@ -169,7 +169,7 @@ class Ordrar extends BaseController
 	public function update_status($id, $new_status, $status = '', $sok = '') {
 		$session = $this->session;
 		$db      = \Config\Database::connect();
-		$builder = $db->table('thecave_orders');
+		$builder = $db->table($this->dbPrefix . 'orders');
 
 		$builder->where('id', $id);
 		$builder->set(array('status'=>$new_status));
@@ -189,7 +189,7 @@ class Ordrar extends BaseController
 		extract($_POST);
 		$session = $this->session;
 		$db      = \Config\Database::connect();
-		$builder = $db->table('thecave_comments');
+		$builder = $db->table($this->dbPrefix . 'comments');
 
 		$arr = array(
 						'order_id'		=>	$order_id,

@@ -11,11 +11,11 @@ class LaddaUpp extends BaseController
 			$data = $_GET;
 		}
 		
-		$data['materials']  = $this->orders->get_data('thecave_materials');
-		$data['laminates']  = $this->orders->get_data('thecave_laminates');
-		$data['cutters']    = $this->orders->get_data('thecave_cutters');
-		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
-		$data['signatures'] = $this->orders->get_data('thecave_signatures');
+		$data['materials']  = $this->orders->get_data($this->dbPrefix . 'materials');
+		$data['laminates']  = $this->orders->get_data($this->dbPrefix . 'laminates');
+		$data['cutters']    = $this->orders->get_data($this->dbPrefix . 'cutters');
+		$data['leveranser'] = $this->orders->get_data($this->dbPrefix . 'leveranser');
+		$data['signatures'] = $this->orders->get_data($this->dbPrefix . 'signatures');
 
 		return view('head',['session' => $this->session])
 				.view('ladda_upp', $data)
@@ -31,7 +31,7 @@ class LaddaUpp extends BaseController
         
         $session = $this->session;
         $db      = \Config\Database::connect();
-        $builder = $db->table('thecave_orders');
+        $builder = $db->table($this->dbPrefix . 'orders');
 
 		//Filerna
 		$files = array();
@@ -182,7 +182,7 @@ class LaddaUpp extends BaseController
 			
 			//Comment
 			if(!empty($comment)) {
-				$builder2 = $db->table('thecave_comments');
+				$builder2 = $db->table($this->dbPrefix . 'comments');
 				$builder2->set(array(
 								'text'		=>	$comment,
 								'signature_id'	=> $signature,

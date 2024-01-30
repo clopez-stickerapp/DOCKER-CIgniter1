@@ -43,6 +43,7 @@ abstract class BaseController extends Controller
      */
     protected $session;
     protected $orders;
+    protected $dbPrefix;
     /**
      * Constructor.
      */
@@ -54,6 +55,9 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
         $this->orders = new \App\Models\OrdersModel();
         $this->session = \Config\Services::session();
+
+        $cave = $this->session->get("whichCave") ?? 'cave';
+		$this->dbPrefix = $cave == 'cave' ? 'thecave_' : 'thelasercave_';
 
         helper(['html', 'url']);
     }

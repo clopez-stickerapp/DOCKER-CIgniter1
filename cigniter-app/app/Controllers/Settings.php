@@ -13,32 +13,28 @@ class Settings extends BaseController
 				.view('foot');
 	}
 	
-	//TODO: ADAPT TO BOTH CAVES
 	public function edit_data($table) {
 		switch($table) {
-			case 'thecave_signatures':
 			case 'signatures':
 				$table_title = 'Signaturer';
-				$table_name = 'thecave_signatures';
+				$table_name = $this->dbPrefix . 'signatures';
 				break;
-			case 'thecave_materials':
+
 			case 'materials':
 				$table_title = 'Material';
-				$table_name = 'thecave_materials';
-
+				$table_name = $this->dbPrefix . 'materials';
 				break;
-			case 'thecave_laminates':
+
 			case 'laminates':
 				$table_title = 'Laminat';
-				$table_name = 'thecave_laminates';
-
+				$table_name = $this->dbPrefix . 'laminates';
 				break;
-			case 'thecave_cutters':
+
 			case 'cutters':
 				$table_title = 'Skärare';
-				$table_name = 'thecave_cutters';
-
+				$table_name = $this->dbPrefix . 'cutters';
 				break;
+
 			default:
 				break;
 		}
