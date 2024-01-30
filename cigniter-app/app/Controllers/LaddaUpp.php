@@ -11,11 +11,11 @@ class LaddaUpp extends BaseController
 			$data = $_GET;
 		}
 		
-		$data['materials']  = $this->orders->get_data($this->dbPrefix . 'materials');
-		$data['laminates']  = $this->orders->get_data($this->dbPrefix . 'laminates');
-		$data['cutters']    = $this->orders->get_data($this->dbPrefix . 'cutters');
-		$data['leveranser'] = $this->orders->get_data($this->dbPrefix . 'leveranser');
-		$data['signatures'] = $this->orders->get_data($this->dbPrefix . 'signatures');
+		$data['materials']  = $this->orders->get_data('materials');
+		$data['laminates']  = $this->orders->get_data('laminates');
+		$data['cutters']    = $this->orders->get_data('cutters');
+		$data['leveranser'] = $this->orders->get_data('leveranser');
+		$data['signatures'] = $this->orders->get_data('signatures');
 
 		return view('head',['session' => $this->session])
 				.view('ladda_upp', $data)
@@ -30,8 +30,8 @@ class LaddaUpp extends BaseController
         extract($_POST);
         
         $session = $this->session;
-        $db      = \Config\Database::connect();
-        $builder = $db->table($this->dbPrefix . 'orders');
+        $db      = \Config\Database::connect($this->dbGroup);
+        $builder = $db->table('orders');
 
 		//Filerna
 		$files = array();
@@ -182,7 +182,7 @@ class LaddaUpp extends BaseController
 			
 			//Comment
 			if(!empty($comment)) {
-				$builder2 = $db->table($this->dbPrefix . 'comments');
+				$builder2 = $db->table('comments');
 				$builder2->set(array(
 								'text'		=>	$comment,
 								'signature_id'	=> $signature,

@@ -7,8 +7,8 @@ use CodeIgniter\Publisher\Publisher;
 
 class OrdersModel extends Model
 {
-    public string $dbPrefix;
-    protected string $table = 'thecave_orders';
+    public string $dbGroup;
+    protected $table = 'orders';
     protected $primaryKey	= 'id';
 
     protected $useAutoIncrement = true;
@@ -41,15 +41,14 @@ class OrdersModel extends Model
 
 	protected function initialize()
     {
-		$cave 			= $this->session->get("whichCave") ?? 'cave';
-
-		$this->dbPrefix = $cave == 'cave' ? 'thecave_' : 'thelasercave_';
-		$this->table 	= $this->dbPrefix .'orders';
+		$session = session();
+        $cave = $session->get("whichCave") ?? 'cave';
+		$this->dbGroup = $cave == 'cave' ? 'default' : 'laser';
     }
 
     public function get( $status = false) {
         $session = session();
-		$db = \Config\Database::connect();
+		$db = \Config\Database::connect($this->dbGroup);
 		$builder = $db->table($this->table);
 		$imageService = \Config\Services::image();
 		$PATH = getcwd();
@@ -103,9 +102,9 @@ class OrdersModel extends Model
 		foreach($q->getResultArray() as $row) {
 			$orders[$i] = $row;
 			$orders[$i]['order_id'] = empty($row['order_id']) ? '&nbsp;' : $row['order_id'];
-			$orders[$i]['material_name'] = $this->get_data($this->dbPrefix . 'materials', $row['material']);
-			$orders[$i]['laminate_name'] = $this->get_data($this->dbPrefix . 'laminates', $row['laminate']);
-			$orders[$i]['cutter_name'] = $this->get_data($this->dbPrefix . 'cutters', $row['cutter']);
+			$orders[$i]['material_name'] = $this->get_data('materials', $row['material']);
+			$orders[$i]['laminate_name'] = $this->get_data('laminates', $row['laminate']);
+			$orders[$i]['cutter_name'] = $this->get_data('cutters', $row['cutter']);
 			if($row['status'] == 'ny') {
 				$orders[$i]['new_status'] = 'printad';
 			} elseif($row['status'] == 'printad') {
@@ -155,7 +154,7 @@ class OrdersModel extends Model
 			//Comments
 			$orders[$i]['comments'] = array();
 
-			$builder2 = $db->table($this->dbPrefix . 'comments');
+			$builder2 = $db->table('comments');
 			$builder2->where('order_id', $row['id']);
 			$builder2->orderBy('id','asc');
 			$q = $builder2->get();
@@ -172,7 +171,7 @@ class OrdersModel extends Model
 	}
 	
 	public function get_data($table, $id = '') {
-		$db = \Config\Database::connect();
+		$db = \Config\Database::connect($this->dbGroup);
 		$builder = $db->table($table);
 
 		if($id != '') {

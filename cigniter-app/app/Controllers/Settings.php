@@ -17,22 +17,22 @@ class Settings extends BaseController
 		switch($table) {
 			case 'signatures':
 				$table_title = 'Signaturer';
-				$table_name = $this->dbPrefix . 'signatures';
+				$table_name = 'signatures';
 				break;
 
 			case 'materials':
 				$table_title = 'Material';
-				$table_name = $this->dbPrefix . 'materials';
+				$table_name = 'materials';
 				break;
 
 			case 'laminates':
 				$table_title = 'Laminat';
-				$table_name = $this->dbPrefix . 'laminates';
+				$table_name = 'laminates';
 				break;
 
 			case 'cutters':
 				$table_title = 'Skärare';
-				$table_name = $this->dbPrefix . 'cutters';
+				$table_name = 'cutters';
 				break;
 
 			default:
@@ -52,7 +52,7 @@ class Settings extends BaseController
 	
 	public function save_data($table) {
 		$session = $this->session;
-		$db = \Config\Database::connect();
+		$db = \Config\Database::connect($this->dbGroup);
 		$builder = $db->table($table);
 
 		foreach($_POST as $id => $name) {
@@ -66,7 +66,7 @@ class Settings extends BaseController
 	
 	public function add_data($table) {
 		$session = $this->session;
-		$db = \Config\Database::connect();
+		$db = \Config\Database::connect($this->dbGroup);
 		$builder = $db->table($table);
 
 		$builder->insert([

@@ -43,7 +43,7 @@ abstract class BaseController extends Controller
      */
     protected $session;
     protected $orders;
-    protected $dbPrefix;
+    protected $dbGroup;
     /**
      * Constructor.
      */
@@ -57,7 +57,7 @@ abstract class BaseController extends Controller
         $this->session = \Config\Services::session();
 
         $cave = $this->session->get("whichCave") ?? 'cave';
-		$this->dbPrefix = $cave == 'cave' ? 'thecave_' : 'thelasercave_';
+		$this->dbGroup = $cave == 'cave' ? 'default' : 'laser';
 
         helper(['html', 'url']);
     }
