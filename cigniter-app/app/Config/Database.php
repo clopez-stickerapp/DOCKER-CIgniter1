@@ -31,7 +31,29 @@ class Database extends Config
         'password' => 'root',
         'database' => 'caves',
         'DBDriver' => 'MySQLi',
-        'DBPrefix' => '',
+        'DBPrefix' => 'thecave_',
+        'pConnect' => false,
+        'DBDebug'  => true,
+        'charset'  => 'utf8',
+        'DBCollat' => 'utf8_unicode_ci',
+        'swapPre'  => '',
+        'encrypt'  => false,
+        'compress' => false,
+        'strictOn' => false,
+        'failover' => [],
+        'port'     => 3306,
+    ];
+
+    // laserCaveGroup
+
+    public array $laser = [
+        'DSN'      => '',
+        'hostname' => 'host.docker.internal',
+        'username' => 'root',
+        'password' => 'root',
+        'database' => 'caves',
+        'DBDriver' => 'MySQLi',
+        'DBPrefix' => 'thelasercave_',
         'pConnect' => false,
         'DBDebug'  => true,
         'charset'  => 'utf8',

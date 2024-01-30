@@ -8,7 +8,7 @@ use CodeIgniter\Publisher\Publisher;
 class OrdersModel extends Model
 {
     public string $dbPrefix;
-    protected string $table;
+    protected string $table = 'thecave_orders';
     protected $primaryKey	= 'id';
 
     protected $useAutoIncrement = true;
