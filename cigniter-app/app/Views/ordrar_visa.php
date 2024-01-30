@@ -20,10 +20,11 @@ function form_check() {
 }
 </script>
 
-<h1>Order ID <?= $id ?>, '<span class="no_transform"><?= $name ?></span>'</h1>
 
 <?php if($cave == 'laser'): ?>
     <h1 <?php if($error==2): ?> style="background-color:#99FF99;" <?php endif; ?> <?php if($error==1): ?> style="background-color:red; color:white;" <?php endif; ?>>Order ID <?php echo $id ?>, '<span class="no_transform"><?php echo $name ?></span>'</h1>
+<?php else: ?>
+    <h1>Order ID <?= $id ?>, '<span class="no_transform"><?= $name ?></span>'</h1>
 <?php endif; ?>
 
 <div class="col2 clear">

@@ -92,49 +92,50 @@ $cave = $session->get("whichCave") ?? 'cave';
         </div>
            
         <?php foreach($orders as $row): ?>
-        <div class="row">
             <?php if($cave == 'laser'): ?>
                 <div class="row" <?php if($row['error']==2): ?> style="background-color:#CCFFCC;" <?php endif; ?> <?php if($row['error']==1): ?> style="background-color:red" <?php endif; ?>>
+            <?php else: ?>
+                <div class="row">
             <?php endif; ?>
-            <div class="col small"><?= $row['id'] ?></div>
-            <div class="col medium"><?= $row['order_id'] ?></div>
-            <div class="col large">
-            	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>" title="<img src='<?= $row['thumb_url'] ?>'>" class="name full text-overflow-ellipsis">
-                    <?= $row['name'] ?>
-            	</a>
-            </div>
-            <div class="col small"><?= $row['m2'] ?></div>
-            <div class="col"><span class="text-overflow-ellipsis" title="<?= $row['material_name'] ?>"><?= $row['material_name'] ?></span></div>
-            <div class="col"><span class="text-overflow-ellipsis" title="<?= $row['laminate_name'] ?>"><?= $row['laminate_name'] ?></span></div>
-            <div class="col"><?= $row['cutter_name'] ?></div>
-            <div class="col">
-            	<?php $days = round((strtotime($row['done_before']) - strtotime(date('Y-m-d'))) / 86400); ?>
-                <?php if($days <= 3 && $row['done_before'] != '&nbsp;'): ?>
-					<span class="warning"><?= $row['done_before'] ?></span>
-                <?php else: ?>
-                	<?= $row['done_before'] ?>
-                <?php endif; ?>
-            </div>
-            <div class="col medium">
-            	<?php if(count($row['comments'])>0): ?>
-                    
-                	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>#comments" class="comment full tt" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<?php foreach($row['comments'] as $c):?><b><?= $ordersModel->get_data($ordersModel->dbPrefix . 'signatures', $c['signature_id'])?></b>: <?= $c['text'] ?><br><?php endforeach; ?>"><img src="<?= base_url() ?>public/images/comments.png" />
-                        (<?= count($row['comments']) ?>)
+                <div class="col small"><?= $row['id'] ?></div>
+                <div class="col medium"><?= $row['order_id'] ?></div>
+                <div class="col large">
+                    <a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>" title="<img src='<?= $row['thumb_url'] ?>'>" class="name full text-overflow-ellipsis">
+                        <?= $row['name'] ?>
                     </a>
-                <?php else: ?>
-                	&nbsp;
-                <?php endif; ?>
+                </div>
+                <div class="col small"><?= $row['m2'] ?></div>
+                <div class="col"><span class="text-overflow-ellipsis" title="<?= $row['material_name'] ?>"><?= $row['material_name'] ?></span></div>
+                <div class="col"><span class="text-overflow-ellipsis" title="<?= $row['laminate_name'] ?>"><?= $row['laminate_name'] ?></span></div>
+                <div class="col"><?= $row['cutter_name'] ?></div>
+                <div class="col">
+                    <?php $days = round((strtotime($row['done_before']) - strtotime(date('Y-m-d'))) / 86400); ?>
+                    <?php if($days <= 3 && $row['done_before'] != '&nbsp;'): ?>
+                        <span class="warning"><?= $row['done_before'] ?></span>
+                    <?php else: ?>
+                        <?= $row['done_before'] ?>
+                    <?php endif; ?>
+                </div>
+                <div class="col medium">
+                    <?php if(count($row['comments'])>0): ?>
+                        
+                        <a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>#comments" class="comment full tt" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<?php foreach($row['comments'] as $c):?><b><?= $ordersModel->get_data($ordersModel->dbPrefix . 'signatures', $c['signature_id'])?></b>: <?= $c['text'] ?><br><?php endforeach; ?>"><img src="<?= base_url() ?>public/images/comments.png" />
+                            (<?= count($row['comments']) ?>)
+                        </a>
+                    <?php else: ?>
+                        &nbsp;
+                    <?php endif; ?>
+                </div>
+                <div class="col small">
+                    <?php if(!empty($row['new_status'])): ?>
+                        <form action="<?= base_url() ?>ordrar/update_status/<?= $row['id'] ?>/<?= $row['new_status'] ?>/<?= $uri->getSegment(2) ?><?= isset($_GET['search_text']) ? '/'.$_GET['search_text'] : '/-'  ?>" method="post">
+                            <input type="submit" value="<?= $row['new_status'] ?>" class="button" />
+                        </form>
+                    <?php else: ?>
+                        Arkiverad
+                    <?php endif; ?>
+                </div>
             </div>
-            <div class="col small">
-            	<?php if(!empty($row['new_status'])): ?>
-                    <form action="<?= base_url() ?>ordrar/update_status/<?= $row['id'] ?>/<?= $row['new_status'] ?>/<?= $uri->getSegment(2) ?><?= isset($_GET['search_text']) ? '/'.$_GET['search_text'] : '/-'  ?>" method="post">
-                        <input type="submit" value="<?= $row['new_status'] ?>" class="button" />
-                    </form>
-                <?php else: ?>
-                	Arkiverad
-            	<?php endif; ?>
-            </div>
-        </div>
         <?php endforeach; ?>
     </div>
 <?php elseif(isset($_GET['search'])): ?>
