@@ -30,11 +30,11 @@
             <li><a href="<?= base_url(); ?>ladda_upp" class="<?= $site == 'ladda_upp'?'active':''; ?>">Ladda upp</a></li>
             <li><a href="<?= base_url(); ?>ordrar" class="<?= $site == 'ordrar'?'active':''; ?>">Ordrar</a></li>
             <?php if($cave == 'laser'): ?>
-                <li><a href="<?= base_url(); ?>ordrar/pp_klar" class="<?= $site == 'ladda_upp'?'active':''; ?>">PP Klar</a></li>
+                <li><a href="<?= base_url(); ?>ordrar/pp_klar" class="<?= $site == 'pp_klar'?'active':''; ?>">PP Klar</a></li>
             <?php endif; ?>
             <li><a href="<?= base_url(); ?>ordrar/printad" class="<?= $site == 'printad'?'active':''; ?>">Printade</a></li>
             <?php if($cave == 'laser'): ?>
-                <li><a href="<?= base_url(); ?>ordrar/laser_klar" class="<?= $site == 'ladda_upp'?'active':''; ?>">Laser Klar</a></li>
+                <li><a href="<?= base_url(); ?>ordrar/laser_klar" class="<?= $site == 'laser_klar'?'active':''; ?>">Laser Klar</a></li>
             <?php endif; ?>
             <li><a href="<?= base_url(); ?>ordrar/klar" class="<?= $site == 'klar'?'active':''; ?>">Klara</a></li>
             <li><a href="<?= base_url(); ?>ordrar/arkiverad" class="<?= $site == 'arkiverad'?'active':''; ?>">Arkiv</a></li>
