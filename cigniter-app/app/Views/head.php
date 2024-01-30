@@ -3,11 +3,6 @@
     $arr = explode('/', $_SERVER['REQUEST_URI']);
     $site = end($arr);
     $caveName = $cave == 'cave' ? 'cave' : 'laser';
-
-    echo '<pre>';
-    var_dump($caveName);
-    var_dump('whichcave', $session->get("whichCave"));
-    echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang='en'>
