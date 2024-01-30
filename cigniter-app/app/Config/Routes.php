@@ -52,6 +52,8 @@ $routes->post('ordrar/add_comment/(:num)', 'Ordrar::add_comment/$1');
 
 $routes->get('settings', 'Settings::index');
 $routes->get('settings/edit_data/(.+)', 'Settings::edit_data/$1');
+$routes->post('settings/save_data/(.+)', 'Settings::save_data/$1');
+$routes->post('settings/add_data/(.+)', 'Settings::add_data/$1');
 
 /*
  * --------------------------------------------------------------------
