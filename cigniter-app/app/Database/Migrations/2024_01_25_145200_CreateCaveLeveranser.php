@@ -6,6 +6,8 @@ use CodeIgniter\Database\Migration;
 
 class CreateCaveLeveranser extends Migration
 {
+    protected $DBGroup = 'default'; // default = cave
+
     public function up()
     {
         $this->forge->addField([
@@ -20,11 +22,11 @@ class CreateCaveLeveranser extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('thecave_leveranser');
+        $this->forge->createTable('leveranser');
     }
 
     public function down()
     {
-        $this->forge->dropTable('thecave_leveranser');
+        $this->forge->dropTable('leveranser');
     }
 }

@@ -6,6 +6,8 @@ use CodeIgniter\Database\Migration;
 
 class CreateCaveComments extends Migration
 {
+    protected $DBGroup = 'default'; // default = cave
+
     public function up()
     {
         $this->forge->addField([
@@ -31,11 +33,11 @@ class CreateCaveComments extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('thecave_comments');
+        $this->forge->createTable('comments');
     }
 
     public function down()
     {
-        $this->forge->dropTable('thecave_comments');
+        $this->forge->dropTable('comments');
     }
 }

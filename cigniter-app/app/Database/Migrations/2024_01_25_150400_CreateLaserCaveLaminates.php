@@ -6,6 +6,8 @@ use CodeIgniter\Database\Migration;
 
 class CreateLaserCaveLaminates extends Migration
 {
+    protected $DBGroup = 'laser';
+
     public function up()
     {
         $this->forge->addField([
@@ -20,11 +22,11 @@ class CreateLaserCaveLaminates extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('thelasercave_laminates');
+        $this->forge->createTable('laminates');
     }
 
     public function down()
     {
-        $this->forge->dropTable('thelasercave_laminates');
+        $this->forge->dropTable('laminates');
     }
 }

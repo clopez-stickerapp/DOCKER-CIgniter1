@@ -6,6 +6,8 @@ use CodeIgniter\Database\Migration;
 
 class CreateCaveSignatures extends Migration
 {
+    protected $DBGroup = 'default'; // default = cave
+
     public function up()
     {
         $this->forge->addField([
@@ -20,11 +22,11 @@ class CreateCaveSignatures extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('thecave_signatures');
+        $this->forge->createTable('signatures');
     }
 
     public function down()
     {
-        $this->forge->dropTable('thecave_signatures');
+        $this->forge->dropTable('signatures');
     }
 }
