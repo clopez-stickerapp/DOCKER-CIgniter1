@@ -32,6 +32,7 @@ $routes->set404Override();
 
 // Routes.php
 $routes->get('/', 'Overview::index');
+$routes->get('/change_cave', 'Overview::change_cave');
 
 $routes->get('ladda_upp', 'LaddaUpp::index');
 $routes->get('ladda_upp/reprint/(:num)', 'LaddaUpp::reprint/$1');

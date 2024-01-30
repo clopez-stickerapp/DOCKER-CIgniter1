@@ -39,6 +39,7 @@
             <li><a href="<?= base_url(); ?>ordrar/arkiverad" class="<?= $site == 'arkiverad'?'active':''; ?>">Arkiv</a></li>
         </ul>
         
+        <a class="change-cave" href="<?= base_url() ?>overview/change_cave">Change Cave</a>
         <a class="settings" href="<?= base_url() ?>settings">Inställningar</a>
 	</div>
     <div id="content_wrapper">

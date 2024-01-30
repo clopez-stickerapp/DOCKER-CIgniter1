@@ -20,4 +20,16 @@ class Overview extends BaseController
 				.view('overview', $data)
 				.view('foot');
 	}
+
+	public function change_cave()
+	{
+		$session = $this->session;
+		$cave = $session->get('whichCave') ?? 'cave';
+		$newCave = $cave == 'cave' ? 'laser' : 'cave';
+
+		$session->remove('whichCave');
+		$session->set(['whichCave' => $newCave]);
+
+		redirect()->to('/');
+	}
 }
