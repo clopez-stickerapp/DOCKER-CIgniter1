@@ -1,5 +1,6 @@
 <?php
     $ordersModel = new \App\Models\CaveOrdersModel();
+    $cave = $session->getTempdata("whichCave") ?? 'cave';
 ?>
 <script type="text/javascript">
 $(function() {
@@ -8,7 +9,7 @@ $(function() {
 function form_check() {
 	var ids = ["height","width","quantity","signature"];
 	var names = ["storlek","storlek","antal","skapad av"];
-	
+
 	for ( var i in ids ) {
 		if(document.getElementById(ids[i]).value == '') {
 			alert('Du måste ange '+names[i]);
@@ -21,6 +22,10 @@ function form_check() {
 </script>
 
 <h1>Order ID <?= $id ?>, '<span class="no_transform"><?= $name ?></span>'</h1>
+
+<?php if($cave == 'laser'): ?>
+    <h1 <?php if($error==2): ?> style="background-color:#99FF99;" <?php endif; ?> <?php if($error==1): ?> style="background-color:red; color:white;" <?php endif; ?>>Order ID <?php echo $id ?>, '<span class="no_transform"><?php echo $name ?></span>'</h1>
+<?php endif; ?>
 
 <div class="col2 clear">
 	<form enctype="multipart/form-data" action="<?= base_url() ?>ladda_upp/upload/<?= $id ?>" method="post" class="form" onSubmit="return form_check()">
@@ -43,7 +48,7 @@ function form_check() {
         <a class="left clear" target="_blank" href="<?= base_url() ?>files/<?= $file5 ?>"><?= $file5 ?></a>
         <input type="file" name="thefile5" id="thefile1" class="input"/>
     </div>
-    
+
 	<h2 class="clear">Information</h2>
     <label for="height">Storlek (mm)*</label>
     <input type="text" name="height" id="height" class="input small" value="<?= $height ?>"/>
@@ -81,11 +86,11 @@ function form_check() {
         <?php foreach($leveranser as $data): ?>
         <option value="<?= $data['id'] ?>"<?= $data['id']==$leverans?'selected':''?>><?= $data['name'] ?></option>
         <?php endforeach ?>
-    </select>    
+    </select>
     <p class="label">Skapad av</p>
 	<p class="input"><?= $ordersModel->get_data('thecave_signatures',$signature_id) ?></p>
     <input type="hidden" value="<?= $signature_id ?>" name="signature" />
-    
+
     <input type="submit" value="Uppdatera" name="submit" class="submit" />
     </form>
     <a class="right" href="<?= base_url() ?>ordrar/radera/<?= $id?>" onClick="return confirm('Radera order?')">Radera</a>
@@ -97,7 +102,7 @@ function form_check() {
     function comment_check() {
         var ids = ["text","signature_id"];
         var names = ["kommentar","signatur"];
-        
+
         for ( var i in ids ) {
             if(document.getElementById(ids[i]).value == '') {
                 alert('Du måste ange '+names[i]);
@@ -128,3 +133,12 @@ function form_check() {
     <input type="submit" name="add_comment" value="Skicka" class="submit" />
     </form>
 </div>
+
+<?php if($cave == 'laser'): ?>
+    <div class="col2">
+        <form name="" action="<?php echo base_url() ?>ordrar/swap_error/<?php echo $id ?>" method="post" >
+            <input type="submit" name="swap_error" value="Markera / avmarkera order som felaktig" class="submit" />
+        </form>
+    </div>
+<?php endif; ?>
+    

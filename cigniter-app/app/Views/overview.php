@@ -1,7 +1,16 @@
+<?php
+$cave = $session->getTempdata("whichCave") ?? 'cave';
+?>
 <h1>Översikt</h1>
 
 <span class="label clear"><a href="<?= base_url() ?>ordrar">Obehandlade</a></span>
 <span class="input">(<b><?= $ordrar ?></b>)</span>
+
+<?php if($cave == 'laser'): ?>
+    <span class="label"><a href="<?php echo $pp_klar ?>">PP Klar</a></span>
+    <span class="input">(<b><?php echo $pp_klar ?></b>)</span>
+<?php endif; ?>
+
 <span class="label"><a href="<?= base_url() ?>ordrar/printad">Printade</a></span>
 <span class="input">(<b><?= $printade ?></b>)</span>
 <span class="label"><a href="<?= base_url() ?>ordrar/klar">Klara</a></span>

@@ -6,76 +6,95 @@ class Ordrar extends BaseController
 {
 
 	public function index() {
+		$session = $this->session;
+
 		$data['title'] = 'Ordrar';
 		$data['new_status'] = 'printad';
 		$data['orders'] = $this->orders->get('ny');
+		$data['session'] = $session;
 
-		return view('head')
+		return view('head', ['session' => $session])
 				.view('ordrar',$data)
 				.view('foot');
 	}
 
 	public function printad() {
+		$session = $this->session;
+
 		$data['title'] = 'Printade';
 		$data['new_status'] = 'klar';
 		$data['orders'] = $this->orders->get('printad');
+		$data['session'] = $session;
 
-		return view('head')
+		return view('head', ['session' => $session])
 				.view('ordrar',$data)
 				.view('foot');
 	}
 
 	public function klar() {
+		$session = $this->session;
+
 		$data['title'] = 'Klara';
 		$data['new_status'] = 'arkiverad';
 		$data['orders'] = $this->orders->get('klar');
+		$data['session'] = $session;
 
-		return view('head')
+		return view('head', ['session' => $session])
 				.view('ordrar',$data)
 				.view('foot');
 	}
 
 	public function arkiverad() {
+		$session = $this->session;
+
 		$data['title'] = 'Arkiv';
 		$data['new_status'] = '';
 		$data['orders'] = $this->orders->get('arkiverad');
+		$data['session'] = $session;
 
-		return view('head')
+		return view('head', ['session' => $session])
 				.view('ordrar',$data)
 				.view('foot');
 	}
 
 	public function sok() {
+		$session = $this->session;
+
 		$data['title'] = 'Sökning';
 		$data['new_status'] = '';
 		$data['orders'] = $this->orders->get();
-		
-		return view('head')
+		$data['session'] = $session;
+
+		return view('head', ['session' => $session])
 				.view('ordrar',$data)
 				.view('foot');
 	}
 
 	public function visa($id) {
+		$session = $this->session;
+
 		$data = $this->orders->get($id);
 		$data['materials'] 	= $this->orders->get_data('thecave_materials');
 		$data['cutters'] 	= $this->orders->get_data('thecave_cutters');
 		$data['laminates'] 	= $this->orders->get_data('thecave_laminates');
 		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
 		$data['signatures'] = $this->orders->get_data('thecave_signatures');
-		return view('head')
+		$data['session'] 	= $this->session;
+
+		return view('head', ['session' => $session])
 				.view('ordrar_visa',$data)
 				.view('foot');
 	}
 
 	public function radera($id) {
-		$session = session();
+		$session = $this->session;
 		$db      = \Config\Database::connect();
 		$builder = $db->table('thecave_orders');
 		$builder2 = $db->table('thecave_comments');
 
 		$builder->delete(['id' => $id]);
 		//		mysql_query("DELETE FROM comments WHERE order_id='$id'");
-		
+
 		$builder2->delete(['order_id' => $id]);
 		//		mysql_query("DELETE FROM orders WHERE id='$id'");
 
@@ -84,7 +103,7 @@ class Ordrar extends BaseController
 	}
 
 	public function order_by($order_by, $return='') {
-		$session = session();
+		$session = $this->session;
 
 		$session->setTempdata('order_by',$order_by);
 		if($session->getTempdata('order_how') == 'DESC') {
@@ -95,9 +114,38 @@ class Ordrar extends BaseController
 
 		return redirect()->to(base_url().'ordrar/'.$return);
 	}
-	
+
+	// LASER CAVE
+	public function pp_klar() {
+		$session = $this->session;
+
+		$data['title']		= 'PP Klar';
+		$data['new_status'] = 'printad';
+		$data['orders'] 	= $this->orders->get('pp_klar');
+		$data['session'] 	= $this->session;
+
+		return view('head', ['session' => $session])
+				.view('ordrar',$data)
+				.view('foot');
+	}
+
+	public function laser_klar() {
+		$session = $this->session;
+
+		$data['title'] 		= 'Laser Klar';
+		$data['new_status'] = 'klar';
+		$data['orders'] 	= $this->orders->get('laser_klar');
+		$data['session'] 	= $this->session;
+
+		return view('head', ['session' => $session])
+				.view('ordrar',$data)
+				.view('foot');
+	}
+
+	// POST
+
 	public function update_status($id, $new_status, $status = '', $sok = '') {
-		$session = session();
+		$session = $this->session;
 		$db      = \Config\Database::connect();
 		$builder = $db->table('thecave_orders');
 
@@ -117,7 +165,7 @@ class Ordrar extends BaseController
 
 	public function add_comment($order_id) {
 		extract($_POST);
-		$session = session();
+		$session = $this->session;
 		$db      = \Config\Database::connect();
 		$builder = $db->table('thecave_comments');
 

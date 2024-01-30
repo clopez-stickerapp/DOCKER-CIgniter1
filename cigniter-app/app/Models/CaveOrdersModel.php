@@ -38,19 +38,20 @@ class CaveOrdersModel extends Model
         'signature_id',
     ];
 
+	protected $session = session();
+
     public function get( $status = false) {
-        $session = session();
 		$db = \Config\Database::connect();
 		$builder = $db->table($this->table);
 		$imageService = \Config\Services::image();
 		$PATH = getcwd();
 
 		//Set default order by
-		if( $session->getTempdata('order_by') == '' ) {
-            $session->setTempdata('order_by', 'id');
+		if( $this->session->getTempdata('order_by') == '' ) {
+            $this->session->setTempdata('order_by', 'id');
         }
-		if( $session->getTempdata('order_how') == '' ) {
-            $session->setTempdata('order_how', 'DESC');
+		if( $this->session->getTempdata('order_how') == '' ) {
+            $this->session->setTempdata('order_how', 'DESC');
         }
 		
 		if(is_numeric($status)) {
@@ -78,8 +79,8 @@ class CaveOrdersModel extends Model
 				}
 				$builder->where("(".$search.")");
 			}
-			$order_by = $session->getTempdata('order_by');
-			$order_how = $session->getTempdata('order_how');
+			$order_by = $this->session->getTempdata('order_by');
+			$order_how = $this->session->getTempdata('order_how');
 			
 			if($order_by == 'comments') {
 				$builder->select("*, (SELECT count(order_id) FROM thecave_comments WHERE order_id=orders.id) AS comments");

@@ -16,8 +16,9 @@ class LaddaUpp extends BaseController
 		$data['cutters']    = $this->orders->get_data('thecave_cutters');
 		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
 		$data['signatures'] = $this->orders->get_data('thecave_signatures');
-		
-		return view('head')
+		$data['session'] 	= $this->session;
+
+		return view('head',['session', $this->session])
 				.view('ladda_upp', $data)
 				.view('foot');
 	}
@@ -29,7 +30,7 @@ class LaddaUpp extends BaseController
 	public function upload($id = false) {
         extract($_POST);
         
-        $session = session();
+        $session = $this->session;
         $db      = \Config\Database::connect();
         $builder = $db->table('thecave_orders');
 

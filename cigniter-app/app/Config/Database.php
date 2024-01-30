@@ -52,7 +52,7 @@ class Database extends Config
     // $db['default']['hostname'] = "localhost:3307";
     // $db['default']['username'] = "develop";
     // $db['default']['password'] = "stickit23435";
-    // $db['default']['database'] = "thecave";
+    // $db['default']['database'] = "thecave"; // AND thelasercave
     // $db['default']['dbdriver'] = "mysqli";
     // $db['default']['dbprefix'] = "";
     // $db['default']['pconnect'] = TRUE;

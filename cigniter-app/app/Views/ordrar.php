@@ -1,7 +1,7 @@
 <?php
-$session = session();
 $uri = current_url(true);
 $ordersModel = new \App\Models\CaveOrdersModel();
+$cave = $session->getTempdata("whichCave") ?? 'cave';
 ?>
 <h1><?= $title ?></h1>
 
@@ -12,7 +12,6 @@ $ordersModel = new \App\Models\CaveOrdersModel();
     <?php if(!empty($_GET['search_text']) && 1==2): ?>
         <a href=""><img src="<?= base_url() ?>images/remove.png" title="avbryt sökningen" class="remove" /></a>
     <?php endif; ?>
-
 </form>
 
 <?php if(count($orders) > 0): ?>
@@ -95,6 +94,9 @@ $ordersModel = new \App\Models\CaveOrdersModel();
            
         <?php foreach($orders as $row): ?>
         <div class="row">
+            <?php if($cave == 'laser'): ?>
+                <div class="row" <?php if($row['error']==2): ?> style="background-color:#CCFFCC;" <?php endif; ?> <?php if($row['error']==1): ?> style="background-color:red" <?php endif; ?>>
+            <?php endif; ?>
             <div class="col small"><?= $row['id'] ?></div>
             <div class="col medium"><?= $row['order_id'] ?></div>
             <div class="col large">

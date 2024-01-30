@@ -6,11 +6,14 @@ class Settings extends BaseController
 {
 
 	public function index() {
-		return view('head')
-				.view('settings')
+		$session = $this->session;
+
+		return view('head', ['session', $session])
+				.view('settings',)
 				.view('foot');
 	}
 	
+	//TODO: ADAPT TO BOTH CAVES
 	public function edit_data($table) {
 		switch($table) {
 			case 'thecave_signatures':
@@ -42,14 +45,15 @@ class Settings extends BaseController
 		$data['table_title'] = $table_title;
 		$data['table'] = $table_name;
 		$data['data'] = $this->orders->get_data($table_name);
+		$data['session'] = $this->session;
 
-		return view('head')
+		return view('head', ['session', $this->session])
 				.view('settings_edit_data',$data)
 				.view('foot');
 	}
 	
 	public function save_data($table) {
-		$session = session();
+		$session = $this->session;
 		$db = \Config\Database::connect();
 		$builder = $db->table($table);
 
@@ -63,7 +67,7 @@ class Settings extends BaseController
 	}
 	
 	public function add_data($table) {
-		$session = session();
+		$session = $this->session;
 		$db = \Config\Database::connect();
 		$builder = $db->table($table);
 

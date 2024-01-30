@@ -130,3 +130,6 @@ define('FOPEN_WRITE_CREATE', 					'ab');
 define('FOPEN_READ_WRITE_CREATE', 				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
+
+// commented in cave, uncommented in lasercave
+//define('FILES_URL','http://192.168.1.39:5081/'); //folder where to save and get files

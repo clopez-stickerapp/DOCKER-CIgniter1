@@ -18,7 +18,9 @@ class App extends BaseConfig
      *    http://example.com/
      */
     public string $baseURL = 'http://localhost:8080/';
+    
     // $config['base_url']	= "http://192.168.1.39/thecave/"; in old cave
+    // $config['base_url']	= http://192.168.1.39/thelasercave/ for laser cave
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
