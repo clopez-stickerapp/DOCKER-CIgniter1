@@ -1,5 +1,5 @@
 <?php
-    $ordersModel = new \App\Models\CaveOrdersModel();
+    // $ordersModel = new \App\Models\CaveOrdersModel();
     $cave = $session->get("whichCave") ?? 'cave';
 ?>
 <script type="text/javascript">

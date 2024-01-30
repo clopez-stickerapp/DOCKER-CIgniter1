@@ -5,7 +5,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 use CodeIgniter\Publisher\Publisher;
 
-class CaveOrdersModel extends Model
+class OrdersModel extends Model
 {
     protected $table      = 'thecave_orders';
     protected $primaryKey = 'id';

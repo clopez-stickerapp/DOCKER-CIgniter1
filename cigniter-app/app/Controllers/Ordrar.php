@@ -5,13 +5,17 @@ namespace App\Controllers;
 class Ordrar extends BaseController
 {
 
+	protected $ordersModel = $this->orders;
+	
 	public function index() {
 		$session = $this->session;
+		$ordersModel = $this->orders;
 
-		$data['title'] = 'Ordrar';
+		$data['title'] 		= 'Ordrar';
 		$data['new_status'] = 'printad';
-		$data['orders'] = $this->orders->get('ny');
-		$data['session'] = $session;
+		$data['orders'] 	= $this->orders->get('ny');
+		$data['session'] 	= $session;
+		$data['ordersModel'] = $ordersModel;
 
 		return view('head', ['session' => $session])
 				.view('ordrar', $data)
@@ -20,12 +24,14 @@ class Ordrar extends BaseController
 
 	public function printad() {
 		$session = $this->session;
-
+		$ordersModel = $this->orders;
+		
 		$data['title'] = 'Printade';
 		$data['new_status'] = 'klar';
 		$data['orders'] = $this->orders->get('printad');
 		$data['session'] = $session;
-
+		$data['ordersModel'] = $ordersModel;
+		
 		return view('head', ['session' => $session])
 				.view('ordrar', $data)
 				.view('foot');
@@ -33,11 +39,13 @@ class Ordrar extends BaseController
 
 	public function klar() {
 		$session = $this->session;
+		$ordersModel = $this->orders;
 
 		$data['title'] = 'Klara';
 		$data['new_status'] = 'arkiverad';
 		$data['orders'] = $this->orders->get('klar');
 		$data['session'] = $session;
+		$data['ordersModel'] = $ordersModel;
 
 		return view('head', ['session' => $session])
 				.view('ordrar', $data)
@@ -46,11 +54,13 @@ class Ordrar extends BaseController
 
 	public function arkiverad() {
 		$session = $this->session;
+		$ordersModel = $this->orders;
 
 		$data['title'] = 'Arkiv';
 		$data['new_status'] = '';
 		$data['orders'] = $this->orders->get('arkiverad');
 		$data['session'] = $session;
+		$data['ordersModel'] = $ordersModel;
 
 		return view('head', ['session' => $session])
 				.view('ordrar', $data)
@@ -59,11 +69,13 @@ class Ordrar extends BaseController
 
 	public function sok() {
 		$session = $this->session;
+		$ordersModel = $this->orders;
 
 		$data['title'] = 'Sökning';
 		$data['new_status'] = '';
 		$data['orders'] = $this->orders->get();
 		$data['session'] = $session;
+		$data['ordersModel'] = $ordersModel;
 
 		return view('head', ['session' => $session])
 				.view('ordrar', $data)
@@ -72,10 +84,11 @@ class Ordrar extends BaseController
 
 	public function visa($id) {
 		$session = $this->session;
+		$ordersModel = $this->orders;
+
 		$cave = $session->get("whichCave") ?? 'cave';
 
 		$dbPrefix = $cave == 'cave' ? 'thecave_' : 'thelasercave_';
-
 
 		$data = $this->orders->get($id);
 		$data['materials'] 	= $this->orders->get_data($dbPrefix . 'materials');
@@ -84,7 +97,8 @@ class Ordrar extends BaseController
 		$data['leveranser'] = $this->orders->get_data($dbPrefix . 'leveranser');
 		$data['signatures'] = $this->orders->get_data($dbPrefix . 'signatures');
 		$data['session'] 	= $this->session;
-
+		$data['ordersModel'] = $ordersModel;
+		
 		return view('head', ['session' => $session])
 				.view('ordrar_visa', $data)
 				.view('foot');
@@ -122,11 +136,13 @@ class Ordrar extends BaseController
 	// LASER CAVE
 	public function pp_klar() {
 		$session = $this->session;
+		$ordersModel = $this->orders;
 
 		$data['title']		= 'PP Klar';
 		$data['new_status'] = 'printad';
 		$data['orders'] 	= $this->orders->get('pp_klar');
 		$data['session'] 	= $this->session;
+		$data['ordersModel'] = $ordersModel;
 
 		return view('head', ['session' => $session])
 				.view('ordrar', $data)
@@ -135,11 +151,13 @@ class Ordrar extends BaseController
 
 	public function laser_klar() {
 		$session = $this->session;
+		$ordersModel = $this->orders;
 
 		$data['title'] 		= 'Laser Klar';
 		$data['new_status'] = 'klar';
 		$data['orders'] 	= $this->orders->get('laser_klar');
 		$data['session'] 	= $this->session;
+		$data['ordersModel'] = $ordersModel;
 
 		return view('head', ['session' => $session])
 				.view('ordrar', $data)
