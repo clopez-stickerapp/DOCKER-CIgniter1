@@ -30,6 +30,6 @@ class Overview extends BaseController
 		$session->remove('whichCave');
 		$session->set(['whichCave' => $newCave]);
 
-		redirect()->to('/');
+		return redirect()->to('/');
 	}
 }
