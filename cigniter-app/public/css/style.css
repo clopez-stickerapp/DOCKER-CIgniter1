@@ -90,8 +90,6 @@ form#search .remove { float:left;margin:7px 0 0 5px; }
     text-align: left;
 }
 
-.active { background-color: #ccaa32; }
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
