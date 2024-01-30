@@ -119,13 +119,20 @@ class CaveOrdersModel extends Model
 
 			$saveLocation = '/writable/uploads/thumbs/' . $file . '_thumb.' . $ext;
 			
-			$imageService->withFile( $filename )
-			->fit(100, 100, 'center');
-			
-			// $PATH necessary to save thumb
-			if ( $imageService->save( $PATH . $saveLocation ) ) {
-				$imgPublisher = new Publisher($PATH .'/writable/uploads/thumbs/', $PATH .'/public/uploads/thumbs/');
-				$imgPublisher->addFile( $PATH . $saveLocation )->copy(true);
+			try {
+				$imageService->withFile( $filename )
+					->fit(100, 100, 'center');
+
+				// $PATH necessary to save thumb
+				if ( $imageService->save( $PATH . $saveLocation ) ) {
+					$imgPublisher = new Publisher($PATH .'/writable/uploads/thumbs/', $PATH .'/public/uploads/thumbs/');
+					$imgPublisher->addFile( $PATH . $saveLocation )->copy(true);
+				}
+			} catch (\Exception $e) {
+				$filename = 'public/images/no_image.jpg';
+				$file = 'no_image';
+				$ext   = pathinfo($filename, PATHINFO_EXTENSION);
+				$thumb = basename($filename, ".$ext") . '_thumb.' . $ext;
 			}
 			
 			$orders[$i]['image_url'] = base_url(). $filename;

@@ -8,7 +8,7 @@ class Files extends BaseController
         try {
             $PATH = getcwd();
             $myimage = file_get_contents( $PATH . '/public/uploads/' . $file);
-            header('Content-Type: image/jpg');
+            header('Content-Type: image/*');
             echo $myimage;
         } catch ( \Exception $e ) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
