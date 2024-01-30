@@ -64,7 +64,7 @@ class CaveOrdersModel extends Model
 
 			if(!empty($_GET['search_text'])) {
 				$text = $_GET['search_text'];
-				$arr = explode(' ',$text);
+				$arr = explode(' ', $text);
 				$search = '';
 				foreach($arr as $word) {
 					if(!empty($search)) { $search .= " OR "; }
@@ -94,9 +94,9 @@ class CaveOrdersModel extends Model
 		foreach($q->getResultArray() as $row) {
 			$orders[$i] = $row;
 			$orders[$i]['order_id'] = empty($row['order_id']) ? '&nbsp;' : $row['order_id'];
-			$orders[$i]['material_name'] = $this->get_data('thecave_materials',$row['material']);
-			$orders[$i]['laminate_name'] = $this->get_data('thecave_laminates',$row['laminate']);
-			$orders[$i]['cutter_name'] = $this->get_data('thecave_cutters',$row['cutter']);
+			$orders[$i]['material_name'] = $this->get_data('thecave_materials', $row['material']);
+			$orders[$i]['laminate_name'] = $this->get_data('thecave_laminates', $row['laminate']);
+			$orders[$i]['cutter_name'] = $this->get_data('thecave_cutters', $row['cutter']);
 			if($row['status'] == 'ny') {
 				$orders[$i]['new_status'] = 'printad';
 			} elseif($row['status'] == 'printad') {
@@ -147,7 +147,7 @@ class CaveOrdersModel extends Model
 			$orders[$i]['comments'] = array();
 
 			$builder2 = $db->table('thecave_comments');
-			$builder2->where('order_id',$row['id']);
+			$builder2->where('order_id', $row['id']);
 			$builder2->orderBy('id','asc');
 			$q = $builder2->get();
 			$orders[$i]['comments'] = $q->getResultArray();
@@ -167,7 +167,7 @@ class CaveOrdersModel extends Model
 		$builder = $db->table($table);
 
 		if($id != '') {
-			$builder->where('id',$id);
+			$builder->where('id', $id);
 			$q = $builder->get();
 			$r = $q->getResultArray();
 			if(!empty($r[0]['name'])) {

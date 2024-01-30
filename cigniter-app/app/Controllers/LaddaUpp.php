@@ -93,7 +93,7 @@ class LaddaUpp extends BaseController
             if($query->getNumRows() > 0) {
                 $i = 2;
                 while($query->getNumRows() > 0) {
-					$parts = explode('.',$image);
+					$parts = explode('.', $image);
                     $ext = end($parts);
                     $new_name = substr($image,0,strlen($image)-strlen($ext)-1);
                     $new_name = $new_name.'-'.$i.'.'.$ext;
@@ -155,7 +155,7 @@ class LaddaUpp extends BaseController
 			
 			//Image
 			$builder->resetQuery();
-			$builder->where('id',$id);
+			$builder->where('id', $id);
 			if($image != '') {
                 //Vanlig
                 $builder->set(array('image'=>$image));
@@ -169,12 +169,12 @@ class LaddaUpp extends BaseController
 			for($i=1; $i<=5; $i++) {
                 if(isset($files[$i])) {
                     //Vanlig ladda upp
-					$builder->where('id',$id);
+					$builder->where('id', $id);
                     $builder->set(array('file'.$i=>$files[$i]));
                     $builder->update();
 				} elseif (isset($_POST['thefile'.$i.'_old']) && $_POST['thefile'.$i.'_old'] != '') {
                     //Reprint
-					$builder->where('id',$id);
+					$builder->where('id', $id);
                     $builder->set(array('file'.$i=>$_POST['thefile'.$i.'_old']));
                     $builder->update();
 				}
@@ -197,20 +197,20 @@ class LaddaUpp extends BaseController
             $builder->resetQuery();
 
             //Uppdatera
-			$builder->where('id',$id);
+			$builder->where('id', $id);
 			$builder->set($arr);
 			$builder->update();
 			
 			//Bild
 			if($image) {
-				$builder->where('id',$id);
+				$builder->where('id', $id);
 				$builder->set(array('image'=>$image));
 				$builder->update();
 			}
 			
 			//Files
 			foreach($files as $i => $filename) {
-				$builder->where('id',$id);
+				$builder->where('id', $id);
 				$builder->set(array('file'.$i=>$filename));
 				$builder->update();
 			}

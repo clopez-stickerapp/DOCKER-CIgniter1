@@ -48,7 +48,7 @@ class Settings extends BaseController
 		$data['session'] = $this->session;
 
 		return view('head', ['session', $this->session])
-				.view('settings_edit_data',$data)
+				.view('settings_edit_data', $data)
 				.view('foot');
 	}
 	

@@ -17,7 +17,7 @@ class Overview extends BaseController
 		$data['session'] = $session;
 
 		return view('head', ['session' => $session])
-				.view('overview',$data)
+				.view('overview', $data)
 				.view('foot');
 	}
 }

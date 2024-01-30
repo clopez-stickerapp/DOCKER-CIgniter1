@@ -14,7 +14,7 @@ class Ordrar extends BaseController
 		$data['session'] = $session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar',$data)
+				.view('ordrar', $data)
 				.view('foot');
 	}
 
@@ -27,7 +27,7 @@ class Ordrar extends BaseController
 		$data['session'] = $session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar',$data)
+				.view('ordrar', $data)
 				.view('foot');
 	}
 
@@ -40,7 +40,7 @@ class Ordrar extends BaseController
 		$data['session'] = $session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar',$data)
+				.view('ordrar', $data)
 				.view('foot');
 	}
 
@@ -53,7 +53,7 @@ class Ordrar extends BaseController
 		$data['session'] = $session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar',$data)
+				.view('ordrar', $data)
 				.view('foot');
 	}
 
@@ -66,7 +66,7 @@ class Ordrar extends BaseController
 		$data['session'] = $session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar',$data)
+				.view('ordrar', $data)
 				.view('foot');
 	}
 
@@ -82,7 +82,7 @@ class Ordrar extends BaseController
 		$data['session'] 	= $this->session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar_visa',$data)
+				.view('ordrar_visa', $data)
 				.view('foot');
 	}
 
@@ -105,7 +105,7 @@ class Ordrar extends BaseController
 	public function order_by($order_by, $return='') {
 		$session = $this->session;
 
-		$session->setTempdata('order_by',$order_by);
+		$session->setTempdata('order_by', $order_by);
 		if($session->getTempdata('order_how') == 'DESC') {
 			$session->setTempdata('order_how','ASC');
 		} else {
@@ -125,7 +125,7 @@ class Ordrar extends BaseController
 		$data['session'] 	= $this->session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar',$data)
+				.view('ordrar', $data)
 				.view('foot');
 	}
 
@@ -138,7 +138,7 @@ class Ordrar extends BaseController
 		$data['session'] 	= $this->session;
 
 		return view('head', ['session' => $session])
-				.view('ordrar',$data)
+				.view('ordrar', $data)
 				.view('foot');
 	}
 
@@ -149,7 +149,7 @@ class Ordrar extends BaseController
 		$db      = \Config\Database::connect();
 		$builder = $db->table('thecave_orders');
 
-		$builder->where('id',$id);
+		$builder->where('id', $id);
 		$builder->set(array('status'=>$new_status));
 		$builder->update();
 

@@ -119,7 +119,7 @@ $cave = $session->getTempdata("whichCave") ?? 'cave';
             <div class="col medium">
             	<?php if(count($row['comments'])>0): ?>
                     
-                	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>#comments" class="comment full tt" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<?php foreach($row['comments'] as $c):?><b><?= $ordersModel->get_data('thecave_signatures',$c['signature_id'])?></b>: <?= $c['text'] ?><br><?php endforeach; ?>"><img src="<?= base_url() ?>public/images/comments.png" />
+                	<a href="<?= base_url() ?>ordrar/visa/<?= $row['id'] ?>#comments" class="comment full tt" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<?php foreach($row['comments'] as $c):?><b><?= $ordersModel->get_data('thecave_signatures', $c['signature_id'])?></b>: <?= $c['text'] ?><br><?php endforeach; ?>"><img src="<?= base_url() ?>public/images/comments.png" />
                         (<?= count($row['comments']) ?>)
                     </a>
                 <?php else: ?>
