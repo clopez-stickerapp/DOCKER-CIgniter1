@@ -38,6 +38,7 @@ label,.label { width:120px; float:left; clear:both; }
 .table .row { float:left; clear:both; width: 100%; height:18px; border:1px solid #fff;padding:5px; }
 .table .row .col { float:left; width:110px; }
 .table .row .col.small { width:60px; }
+.table .row .col.medium { width:75px; }
 .table .row .col.large { width:150px; }
 .table .row .col .button { margin:-2px 0 0 0; text-transform:capitalize; font-size:12px; }
 .table .row .col form { margin:0; padding:0; height:12px; }
