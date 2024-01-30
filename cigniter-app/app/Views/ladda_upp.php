@@ -1,3 +1,6 @@
+<?php
+
+?>
 <script type="text/javascript">
     function get3WorkingDays(){
         var d = new Date();
