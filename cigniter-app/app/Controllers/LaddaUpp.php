@@ -52,7 +52,8 @@ class LaddaUpp extends BaseController
                 if($query->getNumRows() > 0) {
                     $y = 2;
                     while($query->getNumRows() > 0) {
-                        $ext = end( explode( '.', $file ) );
+						$array = explode( '.', $file );
+                        $ext = end( $array );
                         $new_name = substr($file,0,strlen($file)-strlen($ext)-1);
                         $new_name = $new_name.'-'.$y.'.'.$ext;
 
@@ -183,13 +184,12 @@ class LaddaUpp extends BaseController
 			//Comment
 			if(!empty($comment)) {
 				$builder2 = $db->table('comments');
-				$builder2->set(array(
-								'text'		=>	$comment,
-								'signature_id'	=> $signature,
-								'order_id'	=>	$id,
-								'created'	=>	time()
-							));
-				$builder2->insert($arr);
+				$builder2->insert(array(
+					'text'		=>	$comment,
+					'signature_id'	=> $signature,
+					'order_id'	=>	$id,
+					'created'	=>	time()
+				));
 			}
 			$session->setTempdata('message',"<p class='message success'>Order '<b>".$name."'</b> laddades upp</p>");
 			return redirect()->to(base_url().'ordrar');

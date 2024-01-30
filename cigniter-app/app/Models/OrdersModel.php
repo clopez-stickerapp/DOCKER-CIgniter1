@@ -37,6 +37,7 @@ class OrdersModel extends Model
         'cutter',
         'leverans',
         'signature_id',
+		'error'
     ];
 
 	protected function initialize()
