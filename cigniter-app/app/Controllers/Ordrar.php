@@ -55,6 +55,47 @@ class Ordrar extends BaseController
 				.view('foot');
 	}
 
+	public function visa($id) {
+		$data = $this->orders->get($id);
+		$data['materials'] 	= $this->orders->get_data('thecave_materials');
+		$data['cutters'] 	= $this->orders->get_data('thecave_cutters');
+		$data['laminates'] 	= $this->orders->get_data('thecave_laminates');
+		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
+		$data['signatures'] = $this->orders->get_data('thecave_signatures');
+		return view('head')
+				.view('ordrar_visa',$data)
+				.view('foot');
+	}
+
+	public function radera($id) {
+		$session = session();
+		$db      = \Config\Database::connect();
+		$builder = $db->table('thecave_orders');
+		$builder2 = $db->table('thecave_comments');
+
+		$builder->delete(['id' => $id]);
+		//		mysql_query("DELETE FROM comments WHERE order_id='$id'");
+		
+		$builder2->delete(['order_id' => $id]);
+		//		mysql_query("DELETE FROM orders WHERE id='$id'");
+
+		$session->setTempdata('message','<p class="message success">Order #'.$id.' raderad</p>');
+		return redirect()->to(base_url().'ordrar/');
+	}
+
+	public function order_by($order_by, $return='') {
+		$session = session();
+
+		$session->setTempdata('order_by',$order_by);
+		if($session->getTempdata('order_how') == 'DESC') {
+			$session->setTempdata('order_how','ASC');
+		} else {
+			$session->setTempdata('order_how','DESC');
+		}
+
+		return redirect()->to(base_url().'ordrar/'.$return);
+	}
+	
 	public function update_status($id, $new_status, $status = '', $sok = '') {
 		$session = session();
 		$db      = \Config\Database::connect();
@@ -72,18 +113,6 @@ class Ordrar extends BaseController
 			$status .= '?mekk=mekk&search_text=' . $sok;
 		}
 		return redirect()->to(base_url().'ordrar/'.$new_status);
-	}
-
-	public function visa($id) {
-		$data = $this->orders->get($id);
-		$data['materials'] 	= $this->orders->get_data('thecave_materials');
-		$data['cutters'] 	= $this->orders->get_data('thecave_cutters');
-		$data['laminates'] 	= $this->orders->get_data('thecave_laminates');
-		$data['leveranser'] = $this->orders->get_data('thecave_leveranser');
-		$data['signatures'] = $this->orders->get_data('thecave_signatures');
-		return view('head')
-				.view('ordrar_visa',$data)
-				.view('foot');
 	}
 
 	public function add_comment($order_id) {
@@ -105,35 +134,6 @@ class Ordrar extends BaseController
 	}
 
 	public function save_order() {
-	}
-
-	public function order_by($order_by, $return='') {
-		$session = session();
-
-		$session->setTempdata('order_by',$order_by);
-		if($session->getTempdata('order_how') == 'DESC') {
-			$session->setTempdata('order_how','ASC');
-		} else {
-			$session->setTempdata('order_how','DESC');
-		}
-
-		return redirect()->to(base_url().'ordrar/'.$return);
-	}
-
-	public function radera($id) {
-		$session = session();
-		$db      = \Config\Database::connect();
-		$builder = $db->table('thecave_orders');
-		$builder2 = $db->table('thecave_comments');
-
-		$builder->delete(['id' => $id]);
-		//		mysql_query("DELETE FROM comments WHERE order_id='$id'");
-		
-		$builder2->delete(['order_id' => $id]);
-		//		mysql_query("DELETE FROM orders WHERE id='$id'");
-
-		$session->setTempdata('message','<p class="message success">Order #'.$id.' raderad</p>');
-		return redirect()->to(base_url().'ordrar/');
 	}
 
 }

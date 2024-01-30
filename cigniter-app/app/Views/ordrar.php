@@ -90,7 +90,7 @@ $ordersModel = new \App\Models\CaveOrdersModel();
                 	<img src="<?= base_url() ?>public/images/arrow_<?= $direction ?>.gif" class="sort_how"/>
                 <?php endif; ?>
             </div>
-            <div class="col small">Status</div>
+            <div class="col small" style='float:inline-end';>Status</div>
         </div>
            
         <?php foreach($orders as $row): ?>

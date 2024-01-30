@@ -44,9 +44,10 @@ $routes->get('ordrar', 'Ordrar::index');
 $routes->get('ordrar/printad', 'Ordrar::printad');
 $routes->get('ordrar/klar', 'Ordrar::klar');
 $routes->get('ordrar/arkiverad', 'Ordrar::arkiverad');
+$routes->get('ordrar/sok', 'Ordrar::sok');
 $routes->get('ordrar/visa/(:num)', 'Ordrar::visa/$1');
 $routes->get('ordrar/radera/(:num)', 'Ordrar::radera/$1');
-$routes->get('ordrar/sok', 'Ordrar::sok');
+$routes->get('ordrar/order_by/(:segment)/(.*)', 'Ordrar::order_by/$1/$2');
 $routes->post('ordrar/update_status/(:num)/(.*)/(.*)/(.*)', 'Ordrar::update_status/$1/$2/$3/$4');
 $routes->post('ordrar/add_comment/(:num)', 'Ordrar::add_comment/$1');
 
