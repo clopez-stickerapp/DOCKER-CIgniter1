@@ -33,9 +33,9 @@ function form_check() {
 
     <div class="col2 clear">
         <label for="height">Storlek (mm)*</label>
-        <input type="number" min="0" name="height" id="height" class="input small" value="<?= isset($height) ? $height : '' ?>"/>
+        <input type="number" min="0" name="height" id="height" class="input medium" value="<?= isset($height) ? $height : '' ?>"/>
         <span class="left">x</span>
-        <input type="number" min="0" name="width" id="width" class="input small" value="<?= isset($width) ? $width : '' ?>"/>
+        <input type="number" min="0" name="width" id="width" class="input medium" value="<?= isset($width) ? $width : '' ?>"/>
 
         <label for="quantity">Antal*</label>
         <input type="number" min="0" name="quantity" id="quantity" class="input" value="<?= isset($quantity) ? $quantity : '' ?>"/>

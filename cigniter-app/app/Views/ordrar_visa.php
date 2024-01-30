@@ -51,14 +51,25 @@ function form_check() {
 
 	<h2 class="clear">Information</h2>
     <label for="height">Storlek (mm)*</label>
-    <input type="text" name="height" id="height" class="input small" value="<?= $height ?>"/>
+    <input type="number" min="0" name="height" id="height" class="input medium" value="<?= isset($height) ? $height : '' ?>"/>
     <span class="left">x</span>
-    <input type="text" name="width" id="width" class="input small" value="<?= $width ?>"/>
-    <label for="quantity">Antal*</label><input type="text" name="quantity" id="quantity" class="input" value="<?= $quantity ?>"/>
-    <span class="label">m²</span><span class="input"><?= $m2 ?></span>
-    <label for="name">Namn</label><input type="text" name="name" id="name" class="input" value="<?= $name ?>"/>
-    <label for="order_id">Ordernummer</label><input type="text" name="order_id" id="order_id" class="input" value="<?= $order_id ?>"/>
-    <label for="done_before">Ska vara klart</label><input type="text" name="done_before" id="done_before" class="input" value="<?= $done_before ?>"/>
+    <input type="number" min="0" name="width" id="width" class="input medium" value="<?= isset($width) ? $width : '' ?>"/>
+
+    <label for="quantity">Antal*</label>
+    <input type="number" min="0" name="quantity" id="quantity" class="input" value="<?= isset($quantity) ? $quantity : '' ?>"/>
+
+    <span class="label">m²</span>
+    <span class="input"><?= $m2 ?></span>
+
+    <label for="name">Namn</label>
+    <input type="text" name="name" id="name" class="input" value="<?= $name ?>"/>
+
+    <label for="order_id">Ordernummer</label>
+    <input type="text" name="order_id" id="order_id" class="input" value="<?= $order_id ?>"/>
+
+    <label for="done_before">Ska vara klart</label>
+    <input type="text" name="done_before" id="done_before" class="input" value="<?= $done_before ?>"/>
+
     <label for="material">Material</label>
     <select name="material" id="material" class="input">
         <option value="">- Välj -</option>
