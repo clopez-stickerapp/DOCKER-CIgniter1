@@ -1,5 +1,8 @@
 <?php
     $session = session();
+
+    $arr = explode('/', $_SERVER['REQUEST_URI']);
+    $site = end($arr);
 ?>
 <!DOCTYPE html>
 <html lang='en'>
@@ -24,11 +27,11 @@
         <a id="logo" href="<?= base_url(); ?>">The Cave</a>
         
         <ul id="nav">
-            <li><a href="<?= base_url(); ?>ladda_upp">Ladda upp</a></li>
-            <li><a href="<?= base_url(); ?>ordrar">Ordrar</a></li>
-            <li><a href="<?= base_url(); ?>ordrar/printad">Printade</a></li>
-            <li><a href="<?= base_url(); ?>ordrar/klar">Klara</a></li>
-            <li><a href="<?= base_url(); ?>ordrar/arkiverad">Arkiv</a></li>
+            <li><a href="<?= base_url(); ?>ladda_upp" class="<?= $site == 'ladda_upp'?'active':''; ?>">Ladda upp</a></li>
+            <li><a href="<?= base_url(); ?>ordrar" class="<?= $site == 'ordrar'?'active':''; ?>">Ordrar</a></li>
+            <li><a href="<?= base_url(); ?>ordrar/printad" class="<?= $site == 'printad'?'active':''; ?>">Printade</a></li>
+            <li><a href="<?= base_url(); ?>ordrar/klar" class="<?= $site == 'klar'?'active':''; ?>">Klara</a></li>
+            <li><a href="<?= base_url(); ?>ordrar/arkiverad" class="<?= $site == 'arkiverad'?'active':''; ?>">Arkiv</a></li>
         </ul>
         
         <a class="settings" href="<?= base_url() ?>settings">Inställningar</a>
