@@ -155,6 +155,38 @@ class Ordrar extends BaseController
 				.view('foot');
 	}
 
+	// LASER POST
+	public function swap_error( $order_id ) {
+		$session = $this->session;
+		$cave = $session->get("whichCave") ?? 'cave';
+
+		if ($cave != 'laser') {
+			$session->setTempdata('message','<p class="message warning">Error</p>');
+			return redirect()->to(base_url().'ordrar/visa/'.$order_id);
+		}
+		$db      = \Config\Database::connect($this->dbGroup);
+		$builder = $db->table('orders');
+
+		$builder->where('id', $order_id);
+		$query = $builder->get();
+
+		if($query->getNumRows() != 1) {
+			$session->setTempdata('message','<p class="message success">Error status uppdaterad</p>');
+			return redirect()->to(base_url().'ordrar/visa/'.$order_id);
+		}
+		$row = $query->getRow();
+
+		if ($row->error == 0 || $row->error == 2){
+			$new_error = 1;
+		} else {
+			$new_error = 2;
+		}
+		$builder->set(array('error' => $new_error));
+		$builder->update();
+		$session->setTempdata('message','<p class="message success">Error status uppdaterad</p>');
+		return redirect()->to(base_url().'ordrar/visa/'.$order_id);
+	}
+
 	// POST
 
 	public function update_status($id, $new_status, $status = '', $sok = '') {

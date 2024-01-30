@@ -53,6 +53,7 @@ $routes->get('ordrar/radera/(:num)', 'Ordrar::radera/$1');
 $routes->get('ordrar/order_by/(:segment)/(.*)', 'Ordrar::order_by/$1/$2');
 $routes->post('ordrar/update_status/(:num)/(.*)/(.*)/(.*)', 'Ordrar::update_status/$1/$2/$3/$4');
 $routes->post('ordrar/add_comment/(:num)', 'Ordrar::add_comment/$1');
+$routes->post('ordrar/swap_error/(:num)', 'Ordrar::swap_error/$1');
 
 $routes->get('settings', 'Settings::index');
 $routes->get('settings/edit_data/(.+)', 'Settings::edit_data/$1');
