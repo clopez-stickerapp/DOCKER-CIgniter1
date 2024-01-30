@@ -8,7 +8,7 @@ class Settings extends BaseController
 	public function index() {
 		$session = $this->session;
 
-		return view('head', ['session', $session])
+		return view('head', ['session' => $session])
 				.view('settings',)
 				.view('foot');
 	}
